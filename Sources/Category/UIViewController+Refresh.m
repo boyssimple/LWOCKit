@@ -1,18 +1,20 @@
 //
-//  UIViewController+swizzling.m
-//  UMa
+//  UIViewController+Refresh.m
+//  Project
 //
-//  Created by simple on 2018/5/30.
-//  Copyright © 2018年 yanyu. All rights reserved.
+//  Created by luowei on 2018/11/15.
+//  Copyright © 2018年 luowei. All rights reserved.
 //
 
-#import "UIViewController+swizzling.h"
+#import "UIViewController+Refresh.h"
 #import <objc/runtime.h>
 
-@implementation UIViewController (swizzling) 
+@implementation UIViewController (Refresh)
+
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        //viewWillAppear
         SEL systemSel = @selector(viewWillAppear:);
         SEL swizzSel = @selector(swiz_viewWillAppear:);
         Method systemMethod = class_getInstanceMethod([self class], systemSel);
@@ -24,20 +26,6 @@
         }else{
             method_exchangeImplementations(systemMethod, swizzMethod);
         }
-        
-        //viewWillDisappear
-        SEL systemSel2 = @selector(viewWillDisappear:);
-        SEL swizzSel2 = @selector(swiz_viewWillDisappear:);
-        Method systemMethod2 = class_getInstanceMethod([self class], systemSel2);
-        Method swizzMethod2 = class_getInstanceMethod([self class], swizzSel2);
-        
-        BOOL isAdd2 = class_addMethod(self, systemSel2, method_getImplementation(swizzMethod2), method_getTypeEncoding(swizzMethod2));
-        if (isAdd2) {
-            class_replaceMethod(self, swizzSel2, method_getImplementation(systemMethod2), method_getTypeEncoding(systemMethod2));
-        }else{
-            method_exchangeImplementations(systemMethod2, swizzMethod2);
-        }
-        
         
         //viewDidLoad
         SEL systemViewDidLoad = @selector(viewDidLoad);
@@ -69,27 +57,6 @@
         name = @"";
     }
     NSLog(@"当前控制器：%@ -- %@",self.class,name);
-    //处理是否改变导航为红色
-    if ([self changeNavigationBarRedColor]) {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    }else{
-        
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    }
-    
-    if([self isLightContentStatus]){
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    }else{
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    }
-}
-
-- (void)swiz_viewWillDisappear:(BOOL)animated{
-    [self swiz_viewWillDisappear:animated];
-}
-
-- (BOOL)isLightContentStatus{
-    return TRUE;
 }
 
 - (void)swiz_viewDidLoad{
@@ -98,20 +65,12 @@
     }
 }
 
-- (BOOL)changeNavigationBarRedColor{
-    return TRUE;
-}
-
 - (BOOL)isRefreshData{
     return FALSE;
 }
 
 - (void)refereshDataHandle{
     
-}
-
-- (BOOL)isHiddenNavigation{
-    return FALSE;
 }
 
 -(void)swiz_dealloc{
@@ -127,4 +86,5 @@
 - (void)refreshPlatformInfo{
     [[NSNotificationCenter defaultCenter] postNotificationName:REFRESH_ALL_DATA object:nil];
 }
+
 @end

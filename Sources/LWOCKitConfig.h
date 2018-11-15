@@ -15,7 +15,7 @@
 #import "NSObject+ExtensionAttribute.h"
 #import "UIImageView+CornerRadius.h"
 #import "UITypes+extionsion.h"
-#import "UIViewController+swizzling.h"
+#import "UIViewController+Refresh.h"
 #import "GlobalDefine.h"
 
 #endif /* LWOCKitConfig_h */
