@@ -18,5 +18,6 @@
 #import "GlobalDefine.h"
 #import "MBProgressHUD+YY.h"
 #import "NSDictionary+SafeAccess.h"
+#import "YYNetworking.h"
 
 #endif /* LWOCKitConfig_h */
