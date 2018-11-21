@@ -6,9 +6,7 @@
 //  Copyright © 2018年 luowei. All rights reserved.
 //
 
-#import "MBProgressHUD.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import <MBProgressHUD.h>
 
 @interface MBProgressHUD (YY)
 
@@ -64,5 +62,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)showToast:(NSString *)text toView:(UIView *_Nullable)view timeDelay:(CGFloat)delay finishBlock:(void(^)(void))block;
 
 @end
-
-NS_ASSUME_NONNULL_END
