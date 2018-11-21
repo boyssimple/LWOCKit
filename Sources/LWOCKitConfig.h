@@ -18,5 +18,6 @@
 #import "UIViewController+Refresh.h"
 #import "GlobalDefine.h"
 #import "MBProgressHUD+YY.h"
+#import "YYNetworking.h"
 
 #endif /* LWOCKitConfig_h */
