@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "LWOCKit"
-  s.version      = "0.0.71"
+  s.version      = "0.0.72"
   s.summary      = "LWOCKit"
 
   # This description is used to generate tags and improve search results.
@@ -92,7 +92,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "Sources/**/*.{h,m}"
-
+  s.resources    = "Sources/**/*.bundle"
   # s.public_header_files = "Classes/**/*.h"
 
 
