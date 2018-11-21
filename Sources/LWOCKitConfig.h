@@ -17,7 +17,6 @@
 #import "UIViewController+Refresh.h"
 #import "GlobalDefine.h"
 #import "MBProgressHUD+YY.h"
-#import "YYNetworking.h"
 #import "NSDictionary+SafeAccess.h"
 
 #endif /* LWOCKitConfig_h */
