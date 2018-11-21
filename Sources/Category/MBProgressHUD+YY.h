@@ -6,7 +6,7 @@
 //  Copyright © 2018年 luowei. All rights reserved.
 //
 
-#import <MBProgressHUD.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface MBProgressHUD (YY)
 
