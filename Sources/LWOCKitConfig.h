@@ -10,7 +10,6 @@
 #define LWOCKitConfig_h
 
 #import "RegularJudgment.h"
-#import "NSDictionary+SafeAccess.h"
 #import "NSNotification+Extension.h"
 #import "NSObject+ExtensionAttribute.h"
 #import "UIImageView+CornerRadius.h"
@@ -19,5 +18,6 @@
 #import "GlobalDefine.h"
 #import "MBProgressHUD+YY.h"
 #import "YYNetworking.h"
+#import "NSDictionary+SafeAccess.h"
 
 #endif /* LWOCKitConfig_h */
