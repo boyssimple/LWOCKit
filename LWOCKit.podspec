@@ -134,5 +134,8 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency "MBProgressHUD", "~> 1.1.0"
-
+  s.dependency "AFNetworking", "~> 3.2.1"
+  s.dependency "MJExtension", "~> 3.0.15.1"
+  s.dependency "FMDB", "~> 2.7.5"
+  
 end
