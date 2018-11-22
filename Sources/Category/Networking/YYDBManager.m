@@ -39,6 +39,11 @@
 
 - (NSString *)tableNameFromApiObject:(YYApiObject *)obj {
     NSString *tn = [[obj apiUrl] stringByReplacingOccurrencesOfString:@"/" withString:@""];//去掉非法字符
+    tn = [tn stringByReplacingOccurrencesOfString:@"？" withString:@""];//去掉非法字符
+    tn = [tn stringByReplacingOccurrencesOfString:@"=" withString:@""];//去掉非法字符
+    tn = [tn stringByReplacingOccurrencesOfString:@"&" withString:@""];//去掉非法字符
+    tn = [tn stringByReplacingOccurrencesOfString:@"." withString:@""];//去掉非法字符
+    tn = [tn stringByReplacingOccurrencesOfString:@"-" withString:@""];//去掉非法字符
     tn = [NSString stringWithFormat:@"%@%@",tn,[obj getTableNameExt]];
     return tn;
 }
