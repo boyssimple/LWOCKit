@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UITypes+extionsion.h>
+#import <LWOCKit/LWOCKitConfig.h>
 
 //实例
 @interface YYDataManageEntity : NSObject
@@ -17,6 +17,7 @@
 @property  (nonatomic,assign)  CGFloat   cellFooterHeight;
 @property  (nonatomic,strong)  NSString    *headerView;
 @property  (nonatomic,strong)  NSString    *footerView;
+@property  (nonatomic,assign)  BOOL   canEdit;          //是否可以编辑
 @end
 
 //协议代理
@@ -69,11 +70,26 @@
  */
 @property  (nonatomic,copy) CGFloat (^heightForFooterInSectionBlock)(UITableView *table , YYDataManageEntity *model ,NSInteger section);
 
+/**
+ 左滑删除
+ */
+@property  (nonatomic,copy) BOOL (^canEditRowAtIndexPathBlock)(UITableView *table , YYDataManageEntity *model ,NSIndexPath *indexPath);
+
+/**
+ 左滑删除
+ */
+@property  (nonatomic,copy) NSArray* (^editActionsForRowAtIndexPathBlock)(UITableView *table , YYDataManageEntity *model ,NSIndexPath *indexPath);
+
+
+/**
+ 左滑删除事件 (默认删除事件 如果self.canEdit = TRUE时)
+ */
+@property  (nonatomic,copy) void (^deleteActionForRowAtIndexPathBlock)(UITableView *table , YYDataManageEntity *model ,NSIndexPath *indexPath);
 
 
 /**
  设置数据源
-
+ 
  @param entity 实例
  @param tableView table
  */

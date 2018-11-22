@@ -15,7 +15,7 @@
 
 @implementation YYDataManager
 
-- (void)addDataSourceManagerEntity:(YYDataManageEntity*)entity withTableView:(UITableView*)tableView{ 
+- (void)addDataSourceManagerEntity:(YYDataManageEntity*)entity withTableView:(UITableView*)tableView{
     self.entity = entity;
     if (self.dataSource.count == 0) {
         for (NSString *identifier in entity.identifiers) {
@@ -114,8 +114,40 @@
     }
 }
 
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.canEditRowAtIndexPathBlock) {
+        return self.canEditRowAtIndexPathBlock(tableView,self.entity,indexPath);
+    }
+    return self.entity.canEdit;
+}
+
+- (NSArray*)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    if (self.editActionsForRowAtIndexPathBlock) {
+        return self.editActionsForRowAtIndexPathBlock(tableView,self.entity,indexPath);
+    }
+    if (self.entity.canEdit) {
+        __weak typeof(self) weakSelf = self;
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            if (weakSelf.deleteActionForRowAtIndexPathBlock) {
+                weakSelf.deleteActionForRowAtIndexPathBlock(tableView, self.entity, indexPath);
+            }
+        }];
+        
+        return @[deleteAction];
+    }
+    return @[];
+}
+
 @end
 
 @implementation YYDataManageEntity
-
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
 @end
