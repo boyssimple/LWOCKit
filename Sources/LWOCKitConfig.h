@@ -19,5 +19,6 @@
 #import "MBProgressHUD+YY.h"
 #import "NSDictionary+SafeAccess.h"
 #import "YYNetworking.h"
+#import "YYDataManager.h"
 
 #endif /* LWOCKitConfig_h */

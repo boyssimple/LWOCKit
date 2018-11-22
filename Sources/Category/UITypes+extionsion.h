@@ -29,6 +29,12 @@
 + (CGFloat)calHeight:(NSDictionary*)data;
 @end
 
+@interface UITableView (extension)
+//代理
+@property (nonatomic, weak, nullable) id yyDelegate;
+
+@end
+
 @interface UITableViewCell (extension)
 
 @end

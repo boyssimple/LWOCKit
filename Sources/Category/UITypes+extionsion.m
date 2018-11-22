@@ -81,6 +81,20 @@
 @end
 
 
+@implementation UITableView (extension)
+
+- (void)setYyDelegate:(id)yyDelegate{
+    objc_setAssociatedObject(self, @selector(yyDelegate), yyDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.dataSource = yyDelegate;
+    self.delegate = yyDelegate;
+}
+
+- (id)yyDelegate{
+    return [objc_getAssociatedObject(self, _cmd) yyDelegate];
+}
+
+@end
+
 @implementation UITableViewCell (extension)
 
 
