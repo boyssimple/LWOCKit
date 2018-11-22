@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <LWOCKit/LWOCKitConfig.h>
+#import <UITypes+extionsion.h>
 
 //实例
 @interface YYDataManageEntity : NSObject
