@@ -20,5 +20,6 @@
 #import "NSDictionary+SafeAccess.h"
 #import "YYNetworking.h"
 #import "YYDataManager.h"
+#import "UITextField+YY.h"
 
 #endif /* LWOCKitConfig_h */
