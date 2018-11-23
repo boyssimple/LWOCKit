@@ -7,6 +7,8 @@
 //
 
 #import "UITextField+YY.h"
+#import <objc/runtime.h>
+
 @implementation UITextField (YY)
 
 + (void)load{
