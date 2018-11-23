@@ -31,7 +31,6 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"输入的内容:%@",textField.text);
     if (self.lentgh > 0) {
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
         return newLength <= self.lentgh;
@@ -40,7 +39,6 @@
 }
 
 - (instancetype)swiz_initWithFrame:(CGRect)frame{
-    NSLog(@"执行初始化");
     self.delegate =  self;
     
     [self addTarget:self action:@selector(tfTextAction:) forControlEvents:UIControlEventEditingChanged];
@@ -51,7 +49,6 @@
 - (void)tfTextAction:(UITextField*)textField{
     if (textField.markedTextRange == nil) {
         self.isValidate = FALSE;
-        NSLog(@"%ld",self.inputType);
         if (self.inputType == UITextfieldInputTypeAccount) {
             
         }else if(self.inputType == UITextfieldInputTypePassword){
