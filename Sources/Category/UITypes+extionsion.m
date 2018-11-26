@@ -1,9 +1,9 @@
 //
 //  UITypes+extionsion.m
-//  UMa
+//  Project
 //
-//  Created by yanyu on 2018/5/22.
-//  Copyright © 2018年 yanyu. All rights reserved.
+//  Created by luowei on 2018/5/22.
+//  Copyright © 2018年 luowei. All rights reserved.
 //
 
 #import "UITypes+extionsion.h"
@@ -100,6 +100,20 @@
 
 @end
 
+@implementation UICollectionView (extension)
+
+- (void)setYyDelegate:(id)yyDelegate{
+    objc_setAssociatedObject(self, @selector(yyDelegate), yyDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.dataSource = yyDelegate;
+    self.delegate = yyDelegate;
+}
+
+- (id)yyDelegate{
+    return [objc_getAssociatedObject(self, _cmd) yyDelegate];
+}
+
+@end
+
 @implementation NSMutableArray (extension)
 
 - (NSString*)parseToJSON{
@@ -187,8 +201,8 @@
         NSData *jsonData = [(NSString*)self dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error;
         dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                            options:NSJSONReadingMutableContainers
-                                                              error:&error];
+                                              options:NSJSONReadingMutableContainers
+                                                error:&error];
         if(error){
             return nil;
         }
@@ -339,7 +353,7 @@
 
 /**
  设置行距
-
+ 
  @param value 行距值
  */
 - (void)setLineSpace:(CGFloat)value{
@@ -414,7 +428,7 @@
 
 /**
  指定格式字符串转日期
-
+ 
  @param formStyle 格式(例如:2018-11-14 17:49:11)
  @return 返回日期
  */

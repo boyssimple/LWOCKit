@@ -1,9 +1,9 @@
 //
 //  UITypes+extionsion.h
-//  UMa
+//  Project
 //
-//  Created by yanyu on 2018/5/22.
-//  Copyright © 2018年 yanyu. All rights reserved.
+//  Created by luowei on 2018/5/22.
+//  Copyright © 2018年 luowei. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -36,6 +36,12 @@
 @end
 
 @interface UITableViewCell (extension)
+
+@end
+
+@interface UICollectionView (extension)
+//代理
+@property (nonatomic, weak, nullable) id yyDelegate;
 
 @end
 
@@ -95,7 +101,7 @@
 
 /**
  格式化日期
-
+ 
  @param style 格式
  @return 返回格式化后字符串
  */
@@ -108,7 +114,7 @@
 - (NSString*)trim;
 
 //把原格式日期转传入的格式
-- (NSString*)parseDateStringFrom:(NSString*)fromStyle to:(NSString*)toStyle; 
+- (NSString*)parseDateStringFrom:(NSString*)fromStyle to:(NSString*)toStyle;
 
 //把标准yyyy-MM-dd HH:mm:ss 日期转传入的格式
 - (NSString*)parseDateString:(NSString*)formatterStyle;
