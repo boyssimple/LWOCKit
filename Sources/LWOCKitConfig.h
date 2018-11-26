@@ -11,7 +11,6 @@
 
 #import "RegularJudgment.h"
 #import "NSNotification+Extension.h"
-#import "NSObject+ExtensionAttribute.h"
 #import "UIImageView+CornerRadius.h"
 #import "UITypes+extionsion.h"
 #import "UIViewController+Refresh.h"
@@ -21,5 +20,7 @@
 #import "YYNetworking.h"
 #import "YYDataManager.h"
 #import "UITextField+YY.h"
+#import "YYCollectionDataManager.h"
+#import "UIButton+Custom.h"
 
 #endif /* LWOCKitConfig_h */
