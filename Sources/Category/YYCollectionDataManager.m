@@ -39,7 +39,7 @@
 
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return self.dataSource.count;
+    return self.dataSource.count > 0 ? self.dataSource.count : self.entity.tableSections;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

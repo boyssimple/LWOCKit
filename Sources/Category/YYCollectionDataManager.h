@@ -18,6 +18,7 @@
 @property  (nonatomic,strong)  NSString    *headerView;
 @property  (nonatomic,strong)  NSString    *footerView;
 @property  (nonatomic,assign)  BOOL   canEdit;          //是否可以编辑
+@property (nonatomic, assign) NSInteger tableSections;  //sections个数 (如果dataSource.count == 0就用tableSections)
 @end
 
 //协议代理
