@@ -10,20 +10,32 @@
 
 @interface YYPageControllerManager()
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIPageViewController *pageViewController;
 @end
 
 @implementation YYPageControllerManager
 
 - (void)addDataSourceManagerEntity:(YYPageControllerManagerEntity*)entity withTableView:(UIPageViewController*)pageViewController{
     self.dataSource = entity.viewControllers;
-    
+    _pageViewController = pageViewController;
     UIViewController *initialViewController = [self viewControllerAtIndex:entity.currentIndex];
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     
     [pageViewController setViewControllers:viewControllers
-                                  direction:UIPageViewControllerNavigationDirectionReverse
-                                   animated:NO
-                                 completion:nil];
+                                 direction:UIPageViewControllerNavigationDirectionReverse
+                                  animated:NO
+                                completion:nil];
+}
+
+- (void)setSelectIndex:(NSInteger)selectIndex{
+    _selectIndex = selectIndex;
+    UIViewController *initialViewController = [self viewControllerAtIndex:selectIndex];
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+    
+    [self.pageViewController setViewControllers:viewControllers
+                                      direction:UIPageViewControllerNavigationDirectionReverse
+                                       animated:NO
+                                     completion:nil];
 }
 
 #pragma mark - UIPageViewControllerDataSource And UIPageViewControllerDelegate

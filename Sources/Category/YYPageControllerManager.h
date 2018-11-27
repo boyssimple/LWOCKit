@@ -15,6 +15,7 @@
 
 @interface YYPageControllerManager : NSObject<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
+@property (nonatomic, assign) NSInteger selectIndex;
 
 - (void)addDataSourceManagerEntity:(YYPageControllerManagerEntity*)entity withTableView:(UIPageViewController*)pageViewController;
 

@@ -22,5 +22,6 @@
 #import "UITextField+YY.h"
 #import "YYCollectionDataManager.h"
 #import "UIButton+Custom.h"
+#import "YYPageControllerManager.h"
 
 #endif /* LWOCKitConfig_h */
