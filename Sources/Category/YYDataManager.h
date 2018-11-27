@@ -19,6 +19,8 @@
 @property  (nonatomic,strong)  NSString    *footerView;
 @property  (nonatomic,assign)  BOOL   canEdit;          //是否可以编辑
 @property (nonatomic, assign) NSInteger tableSections;  //sections个数 (如果dataSource.count == 0就用tableSections)
+@property (nonatomic, strong) NSArray *headerViews;     //多个header
+@property (nonatomic, strong) NSArray *footerViews;     //多个footer
 @end
 
 //协议代理
@@ -87,6 +89,12 @@
  */
 @property  (nonatomic,copy) void (^deleteActionForRowAtIndexPathBlock)(UITableView *table , YYDataManageEntity *model ,NSIndexPath *indexPath);
 
+
+
+/************* 多个header footer回调  *************/
+@property  (nonatomic,copy) UIView* (^viewForHeaderInSectionReturnBlock)(UITableView *table , YYDataManageEntity *model ,NSInteger section);
+
+@property  (nonatomic,copy) UIView* (^viewForFooterInSectionReturnBlock)(UITableView *table , YYDataManageEntity *model ,NSInteger section);
 
 /**
  设置数据源

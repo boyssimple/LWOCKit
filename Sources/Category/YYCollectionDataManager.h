@@ -12,13 +12,16 @@
 //实例
 @interface YYCollectionDataManageEntity : NSObject
 @property (nonatomic, strong) NSArray *dataSource;
-@property (nonatomic, strong) NSArray *identifiers;
-@property  (nonatomic,assign)  CGSize   cellHeaderSize;
-@property  (nonatomic,assign)  CGSize   cellFooterSize;
-@property  (nonatomic,strong)  NSString    *headerView;
-@property  (nonatomic,strong)  NSString    *footerView;
+@property (nonatomic, strong) NSArray *identifiers;     //@[@"CollCellHome",@"CollCellStyleHome"]
+@property  (nonatomic,assign)  CGSize   cellHeaderSize; //单个header size
+@property  (nonatomic,assign)  CGSize   cellFooterSize; //多个footer size
+@property  (nonatomic,strong)  NSString    *headerView; //单个header
+@property  (nonatomic,strong)  NSString    *footerView; //多个footer
 @property  (nonatomic,assign)  BOOL   canEdit;          //是否可以编辑
 @property (nonatomic, assign) NSInteger tableSections;  //sections个数 (如果dataSource.count == 0就用tableSections)
+
+@property (nonatomic, strong) NSArray *headerViews;     //多个header
+@property (nonatomic, strong) NSArray *footerViews;     //多个footer
 @end
 
 //协议代理
@@ -72,7 +75,10 @@
 @property  (nonatomic,copy) void (^viewForFooterInSectionBlock)(UICollectionReusableView *footer , YYCollectionDataManageEntity *model ,NSIndexPath * indexPath);
 
 
+/************* 多个header footer回调  *************/
+@property  (nonatomic,copy) UICollectionReusableView* (^viewForHeaderInSectionReturnBlock)(UICollectionView *collectionView , YYCollectionDataManageEntity *model ,NSIndexPath *indexPath);
 
+@property  (nonatomic,copy) UICollectionReusableView* (^viewForFooterInSectionReturnBlock)(UICollectionView *collectionView , YYCollectionDataManageEntity *model ,NSIndexPath *indexPath);
 /**
  设置数据源
 

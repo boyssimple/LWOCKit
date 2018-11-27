@@ -21,6 +21,22 @@
         for (NSString *identifier in entity.identifiers) {
             [tableView registerClass:NSClassFromString(identifier) forCellReuseIdentifier:identifier];
         }
+        
+        if (self.entity.headerView) {
+            [tableView registerClass:NSClassFromString(self.entity.headerView) forHeaderFooterViewReuseIdentifier:@"Header"];
+        }else{
+            for (NSString *identifier in entity.headerViews) {
+                [tableView registerClass:NSClassFromString(identifier) forHeaderFooterViewReuseIdentifier:identifier];
+            }
+        }
+        
+        if (self.entity.footerView) {
+            [tableView registerClass:NSClassFromString(self.entity.footerView) forHeaderFooterViewReuseIdentifier:@"Header"];
+        }else{
+            for (NSString *identifier in entity.footerViews) {
+                [tableView registerClass:NSClassFromString(identifier) forHeaderFooterViewReuseIdentifier:identifier];
+            }
+        }
     }
     self.dataSource = entity.dataSource;
     if ([self.delegate respondsToSelector:@selector(refreshDataWithTable:)]) {
@@ -72,17 +88,16 @@
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *header = nil;
     if (self.entity.headerView) {
-        UIView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
-        if(!header){
-            header = [[NSClassFromString(self.entity.headerView) alloc]init];
-        }
+        header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
         if (self.viewForHeaderInSectionBlock) {
             self.viewForHeaderInSectionBlock(header, self.entity, section);
         }
-        return header;
+    }else{
+        header = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
     }
-    return nil;
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -94,17 +109,16 @@
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footer = nil;
     if (self.entity.footerView) {
         UIView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
-        if(!footer){
-            footer = [[NSClassFromString(self.entity.footerView) alloc]init];
-        }
         if (self.viewForFooterInSectionBlock) {
             self.viewForFooterInSectionBlock(footer, self.entity, section);
         }
-        return footer;
+    }else{
+        footer = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
     }
-    return nil;
+    return footer;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

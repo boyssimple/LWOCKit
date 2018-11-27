@@ -22,9 +22,18 @@
         }
         if (self.entity.headerView) {
             [collectionView registerClass:NSClassFromString(self.entity.headerView) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header"];
+        }else{
+            for (NSString *identifier in entity.headerViews) {
+                [collectionView registerClass:NSClassFromString(identifier) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
+            }
         }
         if (self.entity.footerView) {
             [collectionView registerClass:NSClassFromString(self.entity.footerView) forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"Footer"];
+        }else{
+            
+            for (NSString *identifier in entity.footerViews) {
+                [collectionView registerClass:NSClassFromString(identifier) forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
+            }
         }
     }
     self.dataSource = entity.dataSource;
@@ -92,12 +101,20 @@
             if (self.viewForHeaderInSectionBlock) {
                 self.viewForHeaderInSectionBlock(reusableView, self.entity, indexPath);
             }
+        }else{
+            if (self.viewForHeaderInSectionReturnBlock) {
+                reusableView = self.viewForHeaderInSectionReturnBlock(collectionView,self.entity,indexPath);
+            }
         }
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         if (self.entity.footerView) {
             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"Footer" forIndexPath:indexPath];
             if (self.viewForFooterInSectionBlock) {
                 self.viewForFooterInSectionBlock(reusableView, self.entity, indexPath);
+            }
+        }else{
+            if (self.viewForFooterInSectionReturnBlock) {
+                reusableView = self.viewForFooterInSectionReturnBlock(collectionView,self.entity,indexPath);
             }
         }
     }
