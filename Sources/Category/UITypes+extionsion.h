@@ -45,6 +45,12 @@
 
 @end
 
+@interface UIPageViewController (extension)
+//代理
+@property (nonatomic, weak, nullable) id yyDelegate;
+
+@end
+
 @interface NSMutableArray (extension)
 - (NSString*)parseToJSON;
 @end
