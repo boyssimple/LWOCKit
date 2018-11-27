@@ -85,7 +85,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (self.heightForHeaderInSectionBlock) {
+    if (self.heightForFooterInSectionBlock) {
         return self.heightForFooterInSectionBlock(collectionView, self.entity, section);
     }else{
         return self.entity.cellFooterSize;

@@ -95,7 +95,9 @@
             self.viewForHeaderInSectionBlock(header, self.entity, section);
         }
     }else{
-        header = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
+        if(self.viewForHeaderInSectionReturnBlock){
+            header = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
+        }
     }
     return header;
 }
@@ -116,7 +118,9 @@
             self.viewForFooterInSectionBlock(footer, self.entity, section);
         }
     }else{
-        footer = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
+        if(self.viewForHeaderInSectionReturnBlock){
+            footer = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
+        }
     }
     return footer;
 }
