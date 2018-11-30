@@ -70,13 +70,13 @@
                 self.isValidate = TRUE;
             }
         }
-//        if (!self.isValidate) {
-//            self.layer.borderColor = [UIColor redColor].CGColor;
-//            self.layer.borderWidth = 1;
-//        }else{
-//            self.layer.borderColor = [UIColor grayColor].CGColor;
-//            self.layer.borderWidth = 1;
-//        }
+        //        if (!self.isValidate) {
+        //            self.layer.borderColor = [UIColor redColor].CGColor;
+        //            self.layer.borderWidth = 1;
+        //        }else{
+        //            self.layer.borderColor = [UIColor grayColor].CGColor;
+        //            self.layer.borderWidth = 1;
+        //        }
     }
 }
 
@@ -101,26 +101,26 @@
         self.placeholder = @"请输入验证码";
     }
     /*
-    UIKeyboardTypeDefault,                // Default type for the current input method.
-    UIKeyboardTypeASCIICapable,           // Displays a keyboard which can enter ASCII characters
-    UIKeyboardTypeNumbersAndPunctuation,  // Numbers and assorted punctuation.
-    UIKeyboardTypeURL,                    // A type optimized for URL entry (shows . / .com prominently).
-    UIKeyboardTypeNumberPad,              // A number pad with locale-appropriate digits (0-9, ۰-۹, ०-९, etc.). Suitable for PIN entry.
-    UIKeyboardTypePhonePad,               // A phone pad (1-9, *, 0, #, with letters under the numbers).
-    UIKeyboardTypeNamePhonePad,           // A type optimized for entering a person's name or phone number.
-    UIKeyboardTypeEmailAddress,
-    
-    UITextfieldInputTypeAccount = 1 << 0,                   //帐号
-    UITextfieldInputTypePassword = 1 << 1,                  //密码
-    UITextfieldInputTypePhone = 1 << 2,                     //手机号码
-    UITextfieldInputTypeIDCard = 1 << 3,                    //身份证
-    UITextfieldInputTypeCode = 1 << 4,                      //验证码
-    UITextfieldInputTypeNumber = 1 << 5,                    //数字
-    UITextfieldInputTypeChinese = 1 << 6,                   //汉字
-    UITextfieldInputTypeCharacter = 1 << 7,                 //字母 小写
+     UIKeyboardTypeDefault,                // Default type for the current input method.
+     UIKeyboardTypeASCIICapable,           // Displays a keyboard which can enter ASCII characters
+     UIKeyboardTypeNumbersAndPunctuation,  // Numbers and assorted punctuation.
+     UIKeyboardTypeURL,                    // A type optimized for URL entry (shows . / .com prominently).
+     UIKeyboardTypeNumberPad,              // A number pad with locale-appropriate digits (0-9, ۰-۹, ०-९, etc.). Suitable for PIN entry.
+     UIKeyboardTypePhonePad,               // A phone pad (1-9, *, 0, #, with letters under the numbers).
+     UIKeyboardTypeNamePhonePad,           // A type optimized for entering a person's name or phone number.
+     UIKeyboardTypeEmailAddress,
+     
+     UITextfieldInputTypeAccount = 1 << 0,                   //帐号
+     UITextfieldInputTypePassword = 1 << 1,                  //密码
+     UITextfieldInputTypePhone = 1 << 2,                     //手机号码
+     UITextfieldInputTypeIDCard = 1 << 3,                    //身份证
+     UITextfieldInputTypeCode = 1 << 4,                      //验证码
+     UITextfieldInputTypeNumber = 1 << 5,                    //数字
+     UITextfieldInputTypeChinese = 1 << 6,                   //汉字
+     UITextfieldInputTypeCharacter = 1 << 7,                 //字母 小写
      UITextfieldInputTypeEmail = 1 << 8,            //字母 大写
-    UITextfieldInputTypeCharacterUpper = 1 << 9,            //字母 大写
-    objc_setAssociatedObject(self, @"inputType", @(inputType), OBJC_ASSOCIATION_RETAIN);
+     UITextfieldInputTypeCharacterUpper = 1 << 9,            //字母 大写
+     objc_setAssociatedObject(self, @"inputType", @(inputType), OBJC_ASSOCIATION_RETAIN);
      */
     objc_setAssociatedObject(self, @selector(inputType), @(inputType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -134,7 +134,29 @@
 }
 
 - (BOOL)isValidate{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
+    BOOL validate = [objc_getAssociatedObject(self, _cmd) boolValue];
+    if (self.inputType == UITextfieldInputTypeAccount) {
+        
+    }else if(self.inputType == UITextfieldInputTypePassword){
+        
+    }else if(self.inputType == UITextfieldInputTypePhone){
+        if ([self validateContactNumber:self.text]) {
+            validate = TRUE;
+        }
+    }else if(self.inputType == UITextfieldInputTypeIDCard){
+        if ([self validateIdentityCard:self.text]) {
+            validate = TRUE;
+        }
+    }else if(self.inputType == UITextfieldInputTypeEmail){
+        if ([self validateEmail:self.text]) {
+            validate = TRUE;
+        }
+    }else if(self.inputType == UITextfieldInputTypeCode){
+        if ([self validateVerifyCode:self.text]) {
+            validate = TRUE;
+        }
+    }
+    return validate;
 }
 
 - (void)setLentgh:(NSInteger)lentgh{
@@ -168,7 +190,7 @@
 
 /**
  验证码
-
+ 
  @param verifyCode 字符串
  @return 是否通过
  */

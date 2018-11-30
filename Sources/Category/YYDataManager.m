@@ -21,22 +21,6 @@
         for (NSString *identifier in entity.identifiers) {
             [tableView registerClass:NSClassFromString(identifier) forCellReuseIdentifier:identifier];
         }
-        
-        if (self.entity.headerView) {
-            [tableView registerClass:NSClassFromString(self.entity.headerView) forHeaderFooterViewReuseIdentifier:@"Header"];
-        }else{
-            for (NSString *identifier in entity.headerViews) {
-                [tableView registerClass:NSClassFromString(identifier) forHeaderFooterViewReuseIdentifier:identifier];
-            }
-        }
-        
-        if (self.entity.footerView) {
-            [tableView registerClass:NSClassFromString(self.entity.footerView) forHeaderFooterViewReuseIdentifier:@"Header"];
-        }else{
-            for (NSString *identifier in entity.footerViews) {
-                [tableView registerClass:NSClassFromString(identifier) forHeaderFooterViewReuseIdentifier:identifier];
-            }
-        }
     }
     self.dataSource = entity.dataSource;
     if ([self.delegate respondsToSelector:@selector(refreshDataWithTable:)]) {
@@ -91,6 +75,9 @@
     UIView *header = nil;
     if (self.entity.headerView) {
         header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
+        if (!header) {
+            header = [[NSClassFromString(self.entity.headerView) alloc] initWithFrame:CGRectZero];
+        }
         if (self.viewForHeaderInSectionBlock) {
             self.viewForHeaderInSectionBlock(header, self.entity, section);
         }
@@ -99,6 +86,7 @@
             header = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
         }
     }
+    
     return header;
 }
 
@@ -113,7 +101,10 @@
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footer = nil;
     if (self.entity.footerView) {
-        UIView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
+        footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Footer"];
+        if (!footer) {
+            footer = [[NSClassFromString(self.entity.footerView) alloc] initWithFrame:CGRectZero];
+        }
         if (self.viewForFooterInSectionBlock) {
             self.viewForFooterInSectionBlock(footer, self.entity, section);
         }

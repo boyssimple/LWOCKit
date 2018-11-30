@@ -74,6 +74,10 @@
  */
 @property  (nonatomic,copy) void (^viewForFooterInSectionBlock)(UICollectionReusableView *footer , YYCollectionDataManageEntity *model ,NSIndexPath * indexPath);
 
+/**
+ 滚动
+ */
+@property  (nonatomic,copy) void (^scrollViewBlock)(UIScrollView *scrollView); 
 
 /************* 多个header footer回调  *************/
 @property  (nonatomic,copy) UICollectionReusableView* (^viewForHeaderInSectionReturnBlock)(UICollectionView *collectionView , YYCollectionDataManageEntity *model ,NSIndexPath *indexPath);
