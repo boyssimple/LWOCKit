@@ -315,6 +315,12 @@
     return [UIImage imageWithCGImage:scaledImage];
 }
 
+- (NSString*)parseToBase64:(CGFloat)compression{
+    compression = compression < 0.8f?0.8f:compression;
+    NSData *imageData = UIImageJPEGRepresentation(self, compression);//NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
+    NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    return imageBase64Str;
+}
 @end
 
 @implementation UITextView (extension)
@@ -451,6 +457,17 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:formStyle];
     return [dateFormatter dateFromString:self];
+}
+
+/**
+ base64 转Image
+ 
+ @return 返回UIIMage
+ */
+- (UIImage *)base64ParseToImage{
+    NSData *imageData = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    UIImage *image = [UIImage imageWithData:imageData];
+    return image;
 }
 @end
 

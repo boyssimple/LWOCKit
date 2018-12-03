@@ -76,6 +76,7 @@
 // 生成二维码
 + (UIImage *)createImageWithString:(NSString *)string withSize:(CGFloat)size;
 
+- (NSString*)parseToBase64:(CGFloat)compression;
 @end
 
 
@@ -139,6 +140,13 @@
  */
 - (NSDate*)parseToDate:(NSString*)formStyle;
 
+
+/**
+ base64 转Image
+ 
+ @return 返回UIIMage
+ */
+- (UIImage *)base64ParseToImage;
 @end
 
 
