@@ -149,6 +149,35 @@
     return @[];
 }
 
+//返回索引数组
+-(NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+    
+    return self.entity.indexs;
+}
+
+//返回每个索引的内容
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    return [self.entity.indexs objectAtIndex:section];;
+}
+
+//响应点击索引时的委托方法
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+    
+    NSInteger count = 0;
+
+    for (NSString *character in self.entity.indexs) {
+
+        if ([[character uppercaseString] hasPrefix:title]) {
+            return count;
+        }
+
+        count++;
+    }
+    
+    return  0;
+}
+
 @end
 
 @implementation YYDataManageEntity

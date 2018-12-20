@@ -21,6 +21,7 @@
 @property (nonatomic, assign) NSInteger tableSections;  //sections个数 (如果dataSource.count == 0就用tableSections)
 @property (nonatomic, strong) NSArray *headerViews;     //多个header
 @property (nonatomic, strong) NSArray *footerViews;     //多个footer
+@property (nonatomic, strong) NSArray *indexs;          //索引
 @end
 
 //协议代理
