@@ -7,7 +7,6 @@
 //
 
 #import "YYPageControllerManager.h"
-#import "UIViewController+Refresh.h"
 
 @interface YYPageControllerManager()
 @property (nonatomic, strong) NSArray *dataSource;

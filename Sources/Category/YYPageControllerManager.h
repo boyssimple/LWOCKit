@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <LWOCKit/UITypes+extionsion.h>
 
 @interface YYPageControllerManagerEntity : NSObject
 @property (nonatomic, strong) NSArray *viewControllers;
