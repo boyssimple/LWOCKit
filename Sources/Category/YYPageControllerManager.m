@@ -7,9 +7,12 @@
 //
 
 #import "YYPageControllerManager.h"
+#import "UIViewController+Refresh.h"
 
 @interface YYPageControllerManager()
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray *extDatas;
+@property (nonatomic, strong) NSMutableArray *vcs;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @end
 
@@ -18,6 +21,15 @@
 - (void)addDataSourceManagerEntity:(YYPageControllerManagerEntity*)entity withTableView:(UIPageViewController*)pageViewController{
     self.dataSource = entity.viewControllers;
     _pageViewController = pageViewController;
+    _vcs = [NSMutableArray array];
+    _extDatas = entity.extDatas;
+    NSInteger index = 0;
+    for (NSString *str in self.dataSource) {
+        UIViewController *vc = [[NSClassFromString(str) alloc]init];
+        vc.extData = [_extDatas objectAtIndex:index];
+        [_vcs addObject:vc];
+        index++;
+    }
     UIViewController *initialViewController = [self viewControllerAtIndex:entity.currentIndex];
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     
@@ -107,8 +119,7 @@
     }
     // 创建一个新的控制器类，并且分配给相应的数据
     
-    NSString *str = [self.dataSource objectAtIndex:index];
-    UIViewController *vc = [[NSClassFromString(str) alloc]init];
+    UIViewController *vc = [self.vcs objectAtIndex:index];
     vc.view.tag = 1000000+index;
     return vc;
 }

@@ -10,6 +10,7 @@
 
 @interface YYPageControllerManagerEntity : NSObject
 @property (nonatomic, strong) NSArray *viewControllers;
+@property (nonatomic, strong) NSArray *extDatas;
 @property (nonatomic, assign) NSInteger currentIndex;
 @end
 
@@ -20,4 +21,5 @@
 - (void)addDataSourceManagerEntity:(YYPageControllerManagerEntity*)entity withTableView:(UIPageViewController*)pageViewController;
 
 @property (nonatomic, strong) void (^viewControllerAfterViewControllerBlock)(UIViewController *vc ,NSInteger index);
+- (UIViewController *)viewControllerAtIndex:(NSUInteger)index ;
 @end

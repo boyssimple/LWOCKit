@@ -312,7 +312,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                         failBlock(error);
                     }
                 }else{
-                    NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].status];
+                    NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
                         
                     }];

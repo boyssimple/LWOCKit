@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (extension)
+@property (strong,nonatomic)NSDictionary *extData;
 
 @property (nonatomic, strong) void (^calculateBlock)(void);
 - (void)setLeftBackButton:(void(^)(void))calculateBlock;
@@ -27,6 +28,8 @@
 + (CGFloat)calHeight;
 
 + (CGFloat)calHeight:(NSDictionary*)data;
+
+- (UIViewController *)viewController ;
 @end
 
 @interface UITableView (extension)

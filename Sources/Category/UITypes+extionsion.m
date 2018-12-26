@@ -11,6 +11,15 @@
 
 @implementation UIViewController (extension)
 
+- (NSDictionary*)extData{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setExtData:(NSDictionary *)extData{
+    objc_setAssociatedObject(self, @selector(extData), extData, OBJC_ASSOCIATION_RETAIN);
+}
+
+
 - (void)setLeftBackButton:(void (^)(void))calculateBlock{
     self.calculateBlock =  calculateBlock;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_fanhui"] style:UIBarButtonItemStylePlain target:self action:@selector(clickBackAction)];
