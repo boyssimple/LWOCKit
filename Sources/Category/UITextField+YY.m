@@ -88,7 +88,7 @@
         self.keyboardType = UIKeyboardTypeASCIICapable;
         self.placeholder = @"请输入密码";
     }else if(inputType == UITextfieldInputTypePhone){
-        self.keyboardType = UITextfieldInputTypePhone;
+        self.keyboardType = UIKeyboardTypePhonePad;
         self.placeholder = @"请输入手机号码";
     }else if(inputType == UITextfieldInputTypeIDCard){
         self.keyboardType = UIKeyboardTypeASCIICapable;
@@ -97,8 +97,10 @@
         self.keyboardType = UIKeyboardTypeASCIICapable;
         self.placeholder = @"请输入邮箱";
     }else if(inputType == UITextfieldInputTypeCode){
-        self.keyboardType = UITextfieldInputTypePhone;
+        self.keyboardType = UIKeyboardTypePhonePad;
         self.placeholder = @"请输入验证码";
+    }else if(inputType == UITextfieldInputTypeNumber){
+        self.keyboardType = UIKeyboardTypeNumberPad;
     }
     /*
      UIKeyboardTypeDefault,                // Default type for the current input method.

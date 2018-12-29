@@ -311,6 +311,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error);
                     }
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error];
                 }else{
                     NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
@@ -319,6 +320,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error);
                     }
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error];
                 }
             }
         }else{
