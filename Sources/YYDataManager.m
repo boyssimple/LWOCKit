@@ -178,6 +178,12 @@
     return  0;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.scrollViewDidScrollBlock) {
+        self.scrollViewDidScrollBlock(scrollView);
+    }
+}
+
 @end
 
 @implementation YYDataManageEntity

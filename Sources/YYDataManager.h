@@ -97,6 +97,7 @@
 
 @property  (nonatomic,copy) UIView* (^viewForFooterInSectionReturnBlock)(UITableView *table , YYDataManageEntity *model ,NSInteger section);
 
+@property  (nonatomic,copy) void (^scrollViewDidScrollBlock)(UIScrollView* scrollView);
 /**
  设置数据源
  
