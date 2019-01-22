@@ -262,7 +262,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     
     //Hud
     MBProgressHUD *hud;
-    if ([obj isShowHud]) {
+    if ([obj isShowHud] && view) {
         hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
         [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
         
@@ -292,7 +292,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
         
     } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        if ([obj isShowHud]) {
+        if ([obj isShowHud] && view) {
             [hud hideAnimated:TRUE];
         }
         if (!error) {
