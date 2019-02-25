@@ -210,7 +210,7 @@
 
 - (BOOL)validateContactNumber:(NSString *)mobileNum{
 
-    NSString * MOBILE = @"^1\d{10}$";
+    NSString * MOBILE = @"^1\\d{10}$";
     
     NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
     
