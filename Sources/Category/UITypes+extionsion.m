@@ -535,10 +535,9 @@
 
 - (void)xy_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event {
     if(self.isUsedLogin){
-        NSLog(@"需要登录");
+        //NSLog(@"需要登录");
         [self xy_sendAction:action to:target forEvent:event];
     }else{
-        NSLog(@"无需登录");
         [self xy_sendAction:action to:target forEvent:event];
     }
     
