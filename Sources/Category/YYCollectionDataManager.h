@@ -39,6 +39,12 @@
 @property (nonatomic, strong) UICollectionViewCell* (^cellForRowAtIndexPathBlock)(UICollectionView *collectionView,YYCollectionDataManageEntity *entity,NSIndexPath *indexPath);
 
 /**
+ UICollectionView 中的section的数量
+ */
+@property (nonatomic, strong) NSInteger (^numberOfSectionsInCollectionViewBlock)(UICollectionView *collectionView,YYCollectionDataManageEntity *entity);
+
+
+/**
  section中的行的数量
  */
 @property (nonatomic, strong) NSInteger (^numberOfRowsInSectionBlock)(NSInteger section);

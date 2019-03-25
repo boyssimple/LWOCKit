@@ -45,6 +45,12 @@
 @property (nonatomic, strong) CGFloat (^heightForRowAtIndexPathBlock)(NSIndexPath *indexPath);
 
 /**
+ table 中的section的数量
+ */
+@property (nonatomic, strong) NSInteger (^numberOfSectionsInTableViewBlock)(UITableView *table,YYDataManageEntity *entity);
+
+
+/**
  section中的行的数量
  */
 @property (nonatomic, strong) NSInteger (^numberOfRowsInSectionBlock)(NSInteger section);

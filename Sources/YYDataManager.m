@@ -34,6 +34,9 @@
 
 #pragma  mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (self.numberOfSectionsInTableViewBlock) {
+        return self.numberOfSectionsInTableViewBlock(tableView,self.entity);
+    }
     return self.dataSource.count > 0 ? self.dataSource.count : self.entity.tableSections;
 }
 

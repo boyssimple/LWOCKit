@@ -48,6 +48,9 @@
 
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    if(self.numberOfSectionsInCollectionViewBlock){
+        return self.numberOfSectionsInCollectionViewBlock(collectionView,self.entity);
+    }
     return self.dataSource.count > 0 ? self.dataSource.count : self.entity.tableSections;
 }
 
