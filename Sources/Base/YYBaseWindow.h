@@ -8,6 +8,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import <LWOCKit/LWOCKitConfig.h>
 
 typedef NS_OPTIONS(NSUInteger, YYBaseWindowType) {
     YYBaseWindowTypeToast = 1 << 0,

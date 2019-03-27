@@ -27,7 +27,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
         [_grayView addGestureRecognizer:tap];
         
-        _mainView = [[UIView alloc]initWithFrame:CGRectMake(10*RATIO_HEIGHT750, DEVICEHEIGHT, DEVICEWIDTH - 20*RATIO_WIDHT750, 240*RATIO_HEIGHT750+1)];
+        _mainView = [[UIView alloc]initWithFrame:CGRectMake(10, DEVICEHEIGHT, DEVICEWIDTH - 20, 240)];
         _mainView.backgroundColor = [UIColor whiteColor];
         _mainView.layer.cornerRadius = 5;
         _mainView.clipsToBounds = TRUE;
