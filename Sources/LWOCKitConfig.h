@@ -25,5 +25,6 @@
 #import "YYPageControllerManager.h"
 #import "YYImagePickerManager.h"
 #import "UIView+Frame.h"
+#import "YYBaseWindow.h"
 
 #endif /* LWOCKitConfig_h */
