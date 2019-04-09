@@ -16,6 +16,7 @@
 
 typedef void(^HttpSuccessBlock)(id responseObject);
 typedef void(^HttpFailureBlock)(NSError *error);
+typedef void(^HttpFailureBackBlock)(NSError *error,int code);
 typedef void(^HttpProgressBlock)(CGFloat progress);
 
 typedef void(^HttpDownSuccessBlock)(NSURL *filePath);
@@ -124,5 +125,21 @@ typedef void(^HttpUploadProgressBlock)(CGFloat progress);
          progressBlock:(HttpProgressBlock)progressBlock
           successBlock:(HttpSuccessBlock)successBlock
              failBlock:(HttpFailureBlock)failBlock;
+
+/**
+ *  POST请求
+ *
+ *  @param obj              请求对象
+ *  @param view             view
+ *  @param progressBlock    进度回调
+ *  @param successBlock     成功回调
+ *  @param failBlock        失败回调 (有返回code)
+ *
+ */
+- (void)requestWithObj:(YYApiObject*)obj
+                  view:(UIView *)view
+         progressBlock:(HttpProgressBlock)progressBlock
+          successBlock:(HttpSuccessBlock)successBlock
+         failBackBlock:(HttpFailureBackBlock)failBlock;
 
 @end
