@@ -8,21 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <LWOCKit/LWOCKitConfig.h>
-
-//实例
-@interface YYDataManageEntity : NSObject
-@property (nonatomic, strong) NSArray *dataSource;
-@property (nonatomic, strong) NSArray *identifiers;
-@property  (nonatomic,assign)  CGFloat   cellHeaderHeight;
-@property  (nonatomic,assign)  CGFloat   cellFooterHeight;
-@property  (nonatomic,strong)  NSString    *headerView;
-@property  (nonatomic,strong)  NSString    *footerView;
-@property  (nonatomic,assign)  BOOL   canEdit;          //是否可以编辑
-@property (nonatomic, assign) NSInteger tableSections;  //sections个数 (如果dataSource.count == 0就用tableSections)
-@property (nonatomic, strong) NSArray *headerViews;     //多个header
-@property (nonatomic, strong) NSArray *footerViews;     //多个footer
-@property (nonatomic, strong) NSArray *indexs;          //索引
-@end
+#import <LWOCKit/YYDataManagerEntity.h>
 
 //协议代理
 @protocol YYDataManagerDelegate <NSObject>

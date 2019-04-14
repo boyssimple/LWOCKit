@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <LWOCKit/LWOCKitConfig.h>
-#import "YYDataManager.h"
+#import <LWOCKit/YYDataManagerEntity.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
