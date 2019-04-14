@@ -18,6 +18,7 @@
 #import "MBProgressHUD+YY.h"
 #import "NSDictionary+SafeAccess.h"
 #import "YYNetworking.h"
+#import "YYDataManageEntity.h"
 #import "YYDataManager.h"
 #import "YYDataAutoManager.h"
 #import "UITextField+YY.h"
@@ -28,6 +29,5 @@
 #import "UIView+Frame.h"
 #import "YYBaseWindow.h"
 #import "UIButton+ButtonStyle.h"
-#import "YYDataManageEntity.h"
 
 #endif /* LWOCKitConfig_h */
