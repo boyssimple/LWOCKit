@@ -28,5 +28,6 @@
 #import "UIView+Frame.h"
 #import "YYBaseWindow.h"
 #import "UIButton+ButtonStyle.h"
+#import "YYDataManageEntity.h"
 
 #endif /* LWOCKitConfig_h */
