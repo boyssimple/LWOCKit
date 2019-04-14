@@ -27,6 +27,8 @@
 //协议代理
 @protocol YYCollectionDataManagerDelegate <NSObject>
 
+
+@optional
 - (void)refreshDataWithCollection:(UICollectionView*)collectionView;
 
 @end

@@ -27,6 +27,8 @@
 //协议代理
 @protocol YYDataManagerDelegate <NSObject>
 
+
+@optional
 - (void)refreshDataWithTable:(UITableView*)table;
 
 @end
