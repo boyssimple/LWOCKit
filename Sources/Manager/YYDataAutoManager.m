@@ -177,13 +177,3 @@
 }
 
 @end
-
-@implementation YYDataManageEntity
-- (instancetype)init{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-@end
