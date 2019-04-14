@@ -1,5 +1,5 @@
 //
-//  YYDataManagerEntity.h
+//  YYDataManageEntity.h
 //  AFNetworking
 //
 //  Created by yanyu on 2019/4/14.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YYDataManagerEntity : NSObject
+@interface YYDataManageEntity : NSObject
 
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) NSArray *identifiers;
@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *headerViews;     //多个header
 @property (nonatomic, strong) NSArray *footerViews;     //多个footer
 @property (nonatomic, strong) NSArray *indexs;          //索引
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <LWOCKit/LWOCKitConfig.h>
-#import <LWOCKit/YYDataManagerEntity.h>
+#import <LWOCKit/YYDataManageEntity.h>
 
 //协议代理
 @protocol YYDataManagerDelegate <NSObject>
