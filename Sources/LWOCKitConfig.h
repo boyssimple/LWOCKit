@@ -29,5 +29,9 @@
 #import "UIView+Frame.h"
 #import "YYBaseWindow.h"
 #import "UIButton+ButtonStyle.h"
+#import "UIGestureRecognizer+WDExtension.h"
+#import "UIView+WDBlocksKit.h"
+#import "NSString+Category.h"
+#import "UIImage+Zip.h"
 
 #endif /* LWOCKitConfig_h */
