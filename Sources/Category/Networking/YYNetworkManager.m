@@ -161,7 +161,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     hud.label.textColor = [UIColor whiteColor];
     
     NSString *directoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
-    directoryPath = [directoryPath stringByAppendingFormat:@"/%@",dirName];
+    directoryPath = [directoryPath stringByAppendingFormat:@"/%@/",dirName];
     
     BOOL isDir = FALSE;
     
