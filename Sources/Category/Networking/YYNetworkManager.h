@@ -16,7 +16,6 @@
 
 typedef void(^HttpSuccessBlock)(id responseObject);
 typedef void(^HttpFailureBlock)(NSError *error);
-typedef void(^HttpFailureBackBlock)(NSError *error,long code);
 typedef void(^HttpProgressBlock)(CGFloat progress);
 
 typedef void(^HttpDownSuccessBlock)(NSURL *filePath);
@@ -91,6 +90,22 @@ typedef void(^HttpUploadProgressBlock)(CGFloat progress);
                 progress:(HttpDownloadProgressBlock)progress;
 
 /**
+ 下载文件
+ 
+ @param path url路径
+ @param dirName 目录名称
+ @param success 下载成功
+ @param failure 下载失败
+ @param progress 下载进度
+ */
+- (void)downloadWithUrl:(NSString *)url
+                dirName:(NSString*)dirName
+                   view:(UIView*)view
+                success:(HttpDownSuccessBlock)success
+                failure:(HttpFailureBlock)failure
+               progress:(HttpDownloadProgressBlock)progress;
+
+/**
  上传图片
  
  @param path url地址
@@ -125,21 +140,5 @@ typedef void(^HttpUploadProgressBlock)(CGFloat progress);
          progressBlock:(HttpProgressBlock)progressBlock
           successBlock:(HttpSuccessBlock)successBlock
              failBlock:(HttpFailureBlock)failBlock;
-
-/**
- *  POST请求
- *
- *  @param obj              请求对象
- *  @param view             view
- *  @param progressBlock    进度回调
- *  @param successBlock     成功回调
- *  @param failBlock        失败回调 (有返回code)
- *
- */
-- (void)requestWithObj:(YYApiObject*)obj
-                  view:(UIView *)view
-         progressBlock:(HttpProgressBlock)progressBlock
-          successBlock:(HttpSuccessBlock)successBlock
-         failBackBlock:(HttpFailureBackBlock)failBlock;
 
 @end
