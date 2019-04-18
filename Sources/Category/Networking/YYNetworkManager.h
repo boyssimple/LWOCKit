@@ -18,7 +18,7 @@ typedef void(^HttpSuccessBlock)(id responseObject);
 typedef void(^HttpFailureBlock)(NSError *error);
 typedef void(^HttpProgressBlock)(CGFloat progress);
 
-typedef void(^HttpDownSuccessBlock)(NSURL *filePath);
+typedef void(^HttpDownSuccessBlock)(NSURL *filePath,NSString *name);
 typedef void(^HttpDownloadProgressBlock)(CGFloat progress);
 typedef void(^HttpUploadProgressBlock)(CGFloat progress);
 
