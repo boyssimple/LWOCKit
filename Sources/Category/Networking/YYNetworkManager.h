@@ -77,8 +77,8 @@ typedef void(^HttpUploadProgressBlock)(CGFloat progress);
 
 /**
  下载文件
- 
  @param path url路径
+ @param view view
  @param success 下载成功
  @param failure 下载失败
  @param progress 下载进度
