@@ -464,6 +464,7 @@
  */
 - (NSDate*)parseToDate:(NSString*)formStyle{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:formStyle];
     return [dateFormatter dateFromString:self];
 }
