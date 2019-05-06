@@ -138,6 +138,70 @@ static NSTimeInterval   requestTimeout = 20.f;
 }
 
 /**
+ 下载文件
+ 
+ @param path url路径
+ @param dirName 目录名称
+ @param success 下载成功
+ @param failure 下载失败
+ @param progress 下载进度
+ */
+- (void)downloadWithUrl:(NSString *)url
+                dirName:(NSString*)dirName
+                   view:(UIView*)view
+                success:(HttpDownSuccessBlock)success
+                failure:(HttpFailureBlock)failure
+               progress:(HttpDownloadProgressBlock)progress{
+    
+    MBProgressHUD *hud;
+    hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
+    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+    hud.label.text = @"下载中...";
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.label.textColor = [UIColor whiteColor];
+    
+    NSString *directoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
+    directoryPath = [directoryPath stringByAppendingFormat:@"/%@/",dirName];
+    
+    BOOL isDir = FALSE;
+    
+    BOOL isDirExist = [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isDir];
+    if(!(isDirExist && isDir))
+    {
+        
+        BOOL bCreateDir = [[NSFileManager defaultManager] createDirectoryAtPath:directoryPath withIntermediateDirectories:TRUE attributes:nil error:nil];
+        if(!bCreateDir){
+            NSLog(@"文件夹创建失败");
+        }
+    }
+    
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    NSURLSessionDownloadTask *downloadTask = [self.manager downloadTaskWithRequest:request progress:^(NSProgress *downloadProgress){
+        if (progress) {
+            progress(downloadProgress.fractionCompleted);
+        }
+    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *u = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@",directoryPath,[response suggestedFilename]]];
+        return u;
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        [hud hideAnimated:TRUE];
+        if (!error) {
+            if (success) {
+                success(filePath,[response suggestedFilename]);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+    [downloadTask resume];
+}
+
+
+/**
  上传图片
  
  @param path url地址

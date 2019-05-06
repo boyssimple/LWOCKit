@@ -91,6 +91,23 @@ typedef void(^HttpUploadProgressBlock)(CGFloat progress);
                 progress:(HttpDownloadProgressBlock)progress;
 
 /**
+ 下载文件
+ 
+ @param path url路径
+ @param dirName 目录名称
+ @param success 下载成功
+ @param failure 下载失败
+ @param progress 下载进度
+ */
+- (void)downloadWithUrl:(NSString *)url
+                dirName:(NSString*)dirName
+                   view:(UIView*)view
+                success:(HttpDownSuccessBlock)success
+                failure:(HttpFailureBlock)failure
+               progress:(HttpDownloadProgressBlock)progress;
+
+
+/**
  上传图片
  
  @param path url地址
