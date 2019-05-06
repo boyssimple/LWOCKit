@@ -279,11 +279,23 @@ static NSTimeInterval   requestTimeout = 20.f;
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
         requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        //Header
+        NSArray * array = [[YYNetworkingConfig shareInstance].headers allKeys];
+        for (NSString * key in array) {
+            NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
+            [requestSerializer setValue:v forHTTPHeaderField:key];
+        }
         request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
         requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        //Header
+        NSArray * array = [[YYNetworkingConfig shareInstance].headers allKeys];
+        for (NSString * key in array) {
+            NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
+            [requestSerializer setValue:v forHTTPHeaderField:key];
+        }
         request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }
     
@@ -387,11 +399,23 @@ static NSTimeInterval   requestTimeout = 20.f;
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
         requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        //Header
+        NSArray * array = [[YYNetworkingConfig shareInstance].headers allKeys];
+        for (NSString * key in array) {
+            NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
+            [requestSerializer setValue:v forHTTPHeaderField:key];
+        }
         request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
         requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        //Header
+        NSArray * array = [[YYNetworkingConfig shareInstance].headers allKeys];
+        for (NSString * key in array) {
+            NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
+            [requestSerializer setValue:v forHTTPHeaderField:key];
+        }
         request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }
     

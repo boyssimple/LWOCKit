@@ -27,4 +27,7 @@ typedef NS_OPTIONS(NSUInteger, RequestSerializerType) {
 
 //请求参数序列化方式
 @property (nonatomic, assign) RequestSerializerType requestSerializerType;//RequestSerializerTypeHttp(AFHTTPRequestSerializer)默认，AFJSONRequestSerializer
+
+//Header参数
+@property (nonatomic, strong) NSMutableDictionary *headers;
 @end
