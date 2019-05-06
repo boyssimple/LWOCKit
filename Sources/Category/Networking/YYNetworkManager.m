@@ -126,7 +126,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         if (!error) {
             if (success) {
-                success(filePath);
+                success(filePath,[response suggestedFilename]);
             }
         }else{
             if (failure) {
