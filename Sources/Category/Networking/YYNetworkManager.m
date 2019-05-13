@@ -126,7 +126,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         if (!error) {
             if (success) {
-                success(filePath);
+                success(filePath,[response suggestedFilename]);
             }
         }else{
             if (failure) {
@@ -138,60 +138,66 @@ static NSTimeInterval   requestTimeout = 20.f;
 }
 
 /**
- 上传图片
+ 下载文件
  
- @param path url地址
- @param images NSArray对象
- @param thumbName imagekey
- @param params 上传参数
- @param success 上传成功
- @param failure 上传失败
- @param progress 上传进度
+ @param path url路径
+ @param dirName 目录名称
+ @param success 下载成功
+ @param failure 下载失败
+ @param progress 下载进度
  */
-- (void)uploadImageWithPath:(NSString *)path
-                       view:(UIView*)view
-                     params:(NSDictionary *)params
-                  thumbName:(NSString *)thumbName
-                      image:(NSArray *)images
-                    success:(HttpSuccessBlock)success
-                    failure:(HttpFailureBlock)failure
-                   progress:(HttpUploadProgressBlock)progress{
+- (void)downloadWithUrl:(NSString *)url
+                dirName:(NSString*)dirName
+                   view:(UIView*)view
+                success:(HttpDownSuccessBlock)success
+                failure:(HttpFailureBlock)failure
+               progress:(HttpDownloadProgressBlock)progress{
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:path parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    MBProgressHUD *hud;
+    hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
+    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+    hud.label.text = @"下载中...";
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.label.textColor = [UIColor whiteColor];
+    
+    NSString *directoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
+    directoryPath = [directoryPath stringByAppendingFormat:@"/%@/",dirName];
+    
+    BOOL isDir = FALSE;
+    
+    BOOL isDirExist = [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isDir];
+    if(!(isDirExist && isDir))
+    {
         
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyyMMddHHmmss";
-        NSString *str = [formatter stringFromDate:[NSDate date]];
-        NSInteger i = 0;
-        for (UIImage *image in images) {
-            NSData *data = UIImagePNGRepresentation(image);
-            [formData appendPartWithFileData:data name:@"file" fileName:[NSString stringWithFormat:@"%@_%ld.png",str,(long)i++] mimeType:@"image/png"];
+        BOOL bCreateDir = [[NSFileManager defaultManager] createDirectoryAtPath:directoryPath withIntermediateDirectories:TRUE attributes:nil error:nil];
+        if(!bCreateDir){
+            NSLog(@"文件夹创建失败");
         }
-    } error:nil];
+    }
     
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    NSURLSessionUploadTask *uploadTask;
-    uploadTask = [manager
-                  uploadTaskWithStreamedRequest:request
-                  progress:^(NSProgress * _Nonnull uploadProgress) {
-                      if (progress) {
-                          progress(uploadProgress.fractionCompleted);
-                      }
-                  }
-                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                      if (!error) {
-                          if (success) {
-                              success(responseObject);
-                          }
-                      } else {
-                          if (failure) {
-                              failure(error);
-                          }
-                      }
-                  }];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
-    [uploadTask resume];
+    NSURLSessionDownloadTask *downloadTask = [self.manager downloadTaskWithRequest:request progress:^(NSProgress *downloadProgress){
+        if (progress) {
+            progress(downloadProgress.fractionCompleted);
+        }
+    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *u = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@",directoryPath,[response suggestedFilename]]];
+        return u;
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        [hud hideAnimated:TRUE];
+        if (!error) {
+            if (success) {
+                success(filePath,[response suggestedFilename]);
+            }
+        }else{
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+    [downloadTask resume];
 }
 
 - (void)request:(NSString *)url

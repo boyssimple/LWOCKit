@@ -76,6 +76,7 @@ typedef void(^HttpUploadProgressBlock)(CGFloat progress);
        successBlock:(HttpSuccessBlock)successBlock
           failBlock:(HttpFailureBlock)failBlock;
 
+
 /**
  下载文件
  
