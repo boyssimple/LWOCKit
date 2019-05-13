@@ -281,7 +281,10 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
     }
     NSMutableURLRequest *request;
-    NSDictionary *params = obj.mj_keyValues;
+    NSMutableDictionary *params = [obj.mj_keyValues mutableCopy];
+    if (params) {
+        [params removeObjectForKey:@"isHiddenHud"];
+    }
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
@@ -414,7 +417,10 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
     }
     NSMutableURLRequest *request;
-    NSDictionary *params = obj.mj_keyValues;
+    NSMutableDictionary *params = [obj.mj_keyValues mutableCopy];
+    if (params) {
+        [params removeObjectForKey:@"isHiddenHud"];
+    }
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
