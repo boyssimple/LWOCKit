@@ -126,7 +126,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         if (!error) {
             if (success) {
-                success(filePath,[response suggestedFilename]);
+                success(filePath);
             }
         }else{
             if (failure) {
@@ -136,70 +136,6 @@ static NSTimeInterval   requestTimeout = 20.f;
     }];
     [downloadTask resume];
 }
-
-/**
- 下载文件
- 
- @param path url路径
- @param dirName 目录名称
- @param success 下载成功
- @param failure 下载失败
- @param progress 下载进度
- */
-- (void)downloadWithUrl:(NSString *)url
-                dirName:(NSString*)dirName
-                   view:(UIView*)view
-                success:(HttpDownSuccessBlock)success
-                failure:(HttpFailureBlock)failure
-               progress:(HttpDownloadProgressBlock)progress{
-    
-    MBProgressHUD *hud;
-    hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
-    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
-    hud.label.text = @"下载中...";
-    hud.bezelView.backgroundColor = [UIColor blackColor];
-    hud.label.textColor = [UIColor whiteColor];
-    
-    NSString *directoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
-    directoryPath = [directoryPath stringByAppendingFormat:@"/%@/",dirName];
-    
-    BOOL isDir = FALSE;
-    
-    BOOL isDirExist = [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isDir];
-    if(!(isDirExist && isDir))
-    {
-        
-        BOOL bCreateDir = [[NSFileManager defaultManager] createDirectoryAtPath:directoryPath withIntermediateDirectories:TRUE attributes:nil error:nil];
-        if(!bCreateDir){
-            NSLog(@"文件夹创建失败");
-        }
-    }
-    
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    NSURLSessionDownloadTask *downloadTask = [self.manager downloadTaskWithRequest:request progress:^(NSProgress *downloadProgress){
-        if (progress) {
-            progress(downloadProgress.fractionCompleted);
-        }
-    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *u = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@",directoryPath,[response suggestedFilename]]];
-        return u;
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        [hud hideAnimated:TRUE];
-        if (!error) {
-            if (success) {
-                success(filePath,[response suggestedFilename]);
-            }
-        }else{
-            if (failure) {
-                failure(error);
-            }
-        }
-    }];
-    [downloadTask resume];
-}
-
 
 /**
  上传图片
@@ -326,14 +262,16 @@ static NSTimeInterval   requestTimeout = 20.f;
     
     //Hud
     MBProgressHUD *hud;
-    if ([obj isShowHud] && view) {
-        hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
-        [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
-        
-        hud.bezelView.backgroundColor = [UIColor blackColor];
-        hud.label.textColor = [UIColor whiteColor];
-        if ([obj hudTips]) {
-            hud.label.text = [obj hudTips];
+    if (!obj.isHiddenHud) {
+        if ([obj isShowHud] && view) {
+            hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
+            [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+            
+            hud.bezelView.backgroundColor = [UIColor blackColor];
+            hud.label.textColor = [UIColor whiteColor];
+            if ([obj hudTips]) {
+                hud.label.text = [obj hudTips];
+            }
         }
     }
     NSMutableURLRequest *request;
@@ -368,8 +306,10 @@ static NSTimeInterval   requestTimeout = 20.f;
     } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
         
     } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        if ([obj isShowHud] && view) {
-            [hud hideAnimated:TRUE];
+        if (!obj.isHiddenHud) {
+            if ([obj isShowHud] && view) {
+                [hud hideAnimated:TRUE];
+            }
         }
         if (!error) {
             if (responseObject){
@@ -382,12 +322,21 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (successBlock) {
                         successBlock(responseObject);
                     }
+                }else if([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == [YYNetworkingConfig shareInstance].expireCode){
+                    //处理失效回调
+                    if ([YYNetworkingConfig shareInstance].loginExpireBlock) {
+                        [YYNetworkingConfig shareInstance].loginExpireBlock(response, responseObject);
+                    }
+                    if (failBlock) {
+                        failBlock(error);
+                    }
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }else if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 5) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USERLOGINFAILED object:nil];
                     if (failBlock) {
                         failBlock(error);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error];
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }else{
                     NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
@@ -396,14 +345,14 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error];
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }
             }
         }else{
             [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
                 
             }];
-            [self failureNetworking:name url:[obj apiUrl] param:params result:error];
+            [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error);
             }
@@ -446,14 +395,16 @@ static NSTimeInterval   requestTimeout = 20.f;
     
     //Hud
     MBProgressHUD *hud;
-    if ([obj isShowHud] && view) {
-        hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
-        [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
-        
-        hud.bezelView.backgroundColor = [UIColor blackColor];
-        hud.label.textColor = [UIColor whiteColor];
-        if ([obj hudTips]) {
-            hud.label.text = [obj hudTips];
+    if (!obj.isHiddenHud) {
+        if ([obj isShowHud] && view) {
+            hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
+            [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+            
+            hud.bezelView.backgroundColor = [UIColor blackColor];
+            hud.label.textColor = [UIColor whiteColor];
+            if ([obj hudTips]) {
+                hud.label.text = [obj hudTips];
+            }
         }
     }
     NSMutableURLRequest *request;
@@ -488,8 +439,10 @@ static NSTimeInterval   requestTimeout = 20.f;
     } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
         
     } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        if ([obj isShowHud] && view) {
-            [hud hideAnimated:TRUE];
+        if (!obj.isHiddenHud) {
+            if ([obj isShowHud] && view) {
+                [hud hideAnimated:TRUE];
+            }
         }
         if (!error) {
             if (responseObject){
@@ -502,12 +455,21 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (successBlock) {
                         successBlock(responseObject);
                     }
+                }else if([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == [YYNetworkingConfig shareInstance].expireCode){
+                    //处理失效回调
+                    if ([YYNetworkingConfig shareInstance].loginExpireBlock) {
+                        [YYNetworkingConfig shareInstance].loginExpireBlock(response, responseObject);
+                    }
+                    if (failBlock) {
+                        failBlock(error,[responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status]);
+                    }
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }else if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 5) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USERLOGINFAILED object:nil];
                     if (failBlock) {
                         failBlock(error,[responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status]);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error];
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }else{
                     NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
@@ -516,14 +478,14 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error,[responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status]);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error];
+                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }
             }
         }else{
             [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
                 
             }];
-            [self failureNetworking:name url:[obj apiUrl] param:params result:error];
+            [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error,0);
             }
@@ -536,7 +498,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@%@\n%@\n请求结果：%@\n**********************网络请求结束**********************",name,[YYNetworkingConfig shareInstance].hostUrl,url,params,result);
 }
 
-- (void)failureNetworking:(NSString*)name url:(NSString*)url param:(NSDictionary*)params result:(NSError*)error{
-    NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@%@\n%@\n请求错误：%@\n**********************网络请求结束**********************",name,[YYNetworkingConfig shareInstance].hostUrl,url,params,error);
+- (void)failureNetworking:(NSString*)name url:(NSString*)url param:(NSDictionary*)params result:(NSError*)error withResponse:(id  _Nullable)responseObject{
+    NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@%@\n%@\n请求错误：%@\n%@\n**********************网络请求结束**********************",name,[YYNetworkingConfig shareInstance].hostUrl,url,params,error,responseObject);
 }
 @end

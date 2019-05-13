@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YYApiObject : NSObject
-
+@property (nonatomic, assign) BOOL isHiddenHud;             //默认false (主要用于处理多个请求时自行处理hud)
 //请求地址
 - (NSString*)apiUrl;
 
