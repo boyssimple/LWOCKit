@@ -154,11 +154,13 @@ static NSTimeInterval   requestTimeout = 20.f;
                progress:(HttpDownloadProgressBlock)progress{
     
     MBProgressHUD *hud;
-    hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
-    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
-    hud.label.text = @"下载中...";
-    hud.bezelView.backgroundColor = [UIColor blackColor];
-    hud.label.textColor = [UIColor whiteColor];
+    if (view) {
+        hud = [MBProgressHUD showHUDAddedTo:view animated:TRUE];
+        [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+        hud.label.text = @"下载中...";
+        hud.bezelView.backgroundColor = [UIColor blackColor];
+        hud.label.textColor = [UIColor whiteColor];
+    }
     
     NSString *directoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
     directoryPath = [directoryPath stringByAppendingFormat:@"/%@/",dirName];
@@ -186,7 +188,9 @@ static NSTimeInterval   requestTimeout = 20.f;
         NSURL *u = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@",directoryPath,[response suggestedFilename]]];
         return u;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        [hud hideAnimated:TRUE];
+        if (view) {
+            [hud hideAnimated:TRUE];
+        }
         if (!error) {
             if (success) {
                 success(filePath,[response suggestedFilename]);
