@@ -33,5 +33,6 @@
 #import "UIView+WDBlocksKit.h"
 #import "NSString+Category.h"
 #import "UIImage+Zip.h"
+#import "UITextView+PlaceHolder.h"
 
 #endif /* LWOCKitConfig_h */
