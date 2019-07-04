@@ -101,8 +101,8 @@
             self.viewForFooterInSectionBlock(footer, self.entity, section);
         }
     }else{
-        if(self.viewForHeaderInSectionReturnBlock){
-            footer = self.viewForHeaderInSectionReturnBlock(tableView,self.entity,section);
+        if(self.viewForFooterInSectionReturnBlock){
+            footer = self.viewForFooterInSectionReturnBlock(tableView,self.entity,section);
         }
     }
     return footer;

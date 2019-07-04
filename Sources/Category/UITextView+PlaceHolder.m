@@ -1,6 +1,6 @@
 //
 //  UITextView+PlaceHolder.m
-//  
+//
 //
 //  Created by simple on 2018/8/13.
 //  Copyright © 2019年 luowei. All rights reserved.
@@ -12,6 +12,7 @@
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 static const void *textView_key = @"placeHolder";
 static const void *textView_Color_key = @"placeHolderColor";
+static const void *textView_Font_key = @"placeHolderFont";
 
 @interface UITextView ()
 @end
@@ -28,7 +29,7 @@ static const void *textView_Color_key = @"placeHolderColor";
         placeHolderLb.contentMode = UIViewContentModeTop;
         placeHolderLb.numberOfLines = 0;
         placeHolderLb.textColor = self.placeHolderColor ? : [UIColor lightGrayColor];
-        placeHolderLb.font = [UIFont systemFontOfSize:16];
+        placeHolderLb.font = self.font;//[UIFont systemFontOfSize:16];
         placeHolderLb.alpha = 1;
         placeHolderLb.text = placeHolder;
         [self addSubview:placeHolderLb];
@@ -41,6 +42,21 @@ static const void *textView_Color_key = @"placeHolderColor";
 - (NSString *)placeHolder
 {
     return objc_getAssociatedObject(self, textView_key);
+}
+
+
+- (void)setFont:(UIFont *)font{
+    if (font != self.font) {
+        objc_setAssociatedObject(self, textView_Font_key, font, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        UILabel *lb = [self viewWithTag:10000];
+        if (lb) {
+            lb.font = font;
+        }
+    }
+}
+
+- (UIFont *)font{
+    return objc_getAssociatedObject(self, textView_Font_key);
 }
 
 - (void)setPlaceHolderColor:(UIColor *)placeHolderColor{

@@ -1,6 +1,6 @@
 //
 //  UITextView+PlaceHolder.h
-//  
+//
 //
 //  Created by simple on 2018/8/13.
 //  Copyright © 2019年 luowei. All rights reserved.
@@ -13,5 +13,5 @@
 
 @property (nonatomic, copy) NSString *placeHolder;
 @property (nonatomic, copy) UIColor *placeHolderColor;
-
+@property (nonatomic, strong) UIFont *font;
 @end
