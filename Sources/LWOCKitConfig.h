@@ -26,6 +26,7 @@
 #import "UIButton+Custom.h"
 #import "YYPageControllerManager.h"
 #import "YYImagePickerManager.h"
+#import "YYImgPickerManager.h"
 #import "UIView+Frame.h"
 #import "YYBaseWindow.h"
 #import "UIButton+ButtonStyle.h"
