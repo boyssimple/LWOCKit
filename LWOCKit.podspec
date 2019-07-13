@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "LWOCKit"
-  s.version      = "0.0.77.522"
+  s.version      = "0.0.77.523"
   s.summary      = "LWOCKit"
 
   # This description is used to generate tags and improve search results.
@@ -137,5 +137,6 @@ Pod::Spec.new do |s|
   s.dependency "AFNetworking", "~> 3.2.1"
   s.dependency "MJExtension", "~> 3.0.15.1"
   s.dependency "FMDB", "~> 2.7.5"
+  s.dependency "AliyunOSSiOS"
 
 end
