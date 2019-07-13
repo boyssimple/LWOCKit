@@ -23,6 +23,8 @@
 
 - (void)updateData:(NSDictionary*)data;
 
+- (void)updateDataWithModel:(id)model;
+
 - (void)removeAllSubviews;
 
 + (CGFloat)calHeight;

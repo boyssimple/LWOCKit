@@ -80,6 +80,10 @@
     
 }
 
+- (void)updateDataWithModel:(id)model{
+    
+}
+
 + (CGFloat)calHeight{
     return 0;
 }
