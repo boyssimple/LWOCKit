@@ -7,6 +7,7 @@
 //
 
 #import "YYVersionManager.h"
+#import <LWOCKit/LWOCKitConfig.h>
 
 @interface YYVersionManager()
 @property (nonatomic, strong) NSString *newsVersionStr;
@@ -26,14 +27,13 @@
 
 #pragma mark - 检查是否是最新版本
 - (void)checkVersion{
-    //获取当前版本
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     self.appVersionStr = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    //获取APP Store版本
-    NSString *urlString = self.url;//@"https://itunes.apple.com/cn/lookup?id=1433884031"; //自己应用在App Store里的地址
+    NSString *urlString = [NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@",self.appId];
     NSURL *url = [NSURL URLWithString:urlString];
     if (url) {
         NSString *jsonResponseString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        
         NSDictionary *innforDict = [jsonResponseString parseToNSDictionary];
         NSArray *array = [innforDict jk_arrayForKey:@"results"];
         NSString *notesStr = @"";
@@ -56,7 +56,7 @@
             
             [alertController addAction:okAction];
             [alertController addAction:cancelAction];
-            [[UIApplication sharedApplication].keyWindow.viewController presentViewController:alertController animated:YES completion:nil];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
     }
     

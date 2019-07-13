@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YYVersionManager : YYApiObject
-
+@property (nonatomic, strong) NSString *appId;              //app id (app stores中的id)
 @property (nonatomic, strong) NSString *url;                //下载地址
 + (instancetype)shared;
 
