@@ -7,7 +7,8 @@
 //
 
 #import "YYVersionManager.h"
-#import <LWOCKit/LWOCKitConfig.h>
+#import <LWOCKit/UITypes+extionsion.h>
+#import <LWOCKit/NSDictionary+SafeAccess.h>
 
 @interface YYVersionManager()
 @property (nonatomic, strong) NSString *newsVersionStr;

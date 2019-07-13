@@ -35,5 +35,7 @@
 #import "NSString+Category.h"
 #import "UIImage+Zip.h"
 #import "UITextView+PlaceHolder.h"
+#import "YYVersionManager.h"
+#import "YYUploadManager.h"
 
 #endif /* LWOCKitConfig_h */
