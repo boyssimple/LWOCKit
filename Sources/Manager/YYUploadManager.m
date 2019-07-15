@@ -7,8 +7,8 @@
 //
 
 #import "YYUploadManager.h"
-#import <AliyunOSSiOS.h>
-#import <MBProgressHUD.h>
+#import <AliyunOSSiOS/AliyunOSSiOS.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 
                                         
