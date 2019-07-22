@@ -11,7 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 
-                                        
+
 @implementation YYUploadManager
 
 + (instancetype)shared {
@@ -108,7 +108,7 @@
                             NSMutableArray *urls = [NSMutableArray arrayWithCapacity:callBackNames.count];
                             for (NSString *url in callBackNames) {
                                 if ( ![url containsString:@"http://"]) { //添加图片地址前缀
-                                    NSString *newUrl = [NSString stringWithFormat:@"%@%@",self.img_oss_url,url];
+                                    NSString *newUrl = [NSString stringWithFormat:@"http://%@.%@%@",self.bucket,self.img_oss_url,url];
                                     [urls addObject:newUrl];
                                 }
                             }
@@ -132,7 +132,7 @@
                 NSMutableArray *urls = [NSMutableArray arrayWithCapacity:callBackNames.count];
                 for (NSString *url in callBackNames) {
                     if ( ![url containsString:@"http://"]) { //添加图片地址前缀
-                        NSString *newUrl = [NSString stringWithFormat:@"%@%@",self.img_oss_url,url];
+                        NSString *newUrl = [NSString stringWithFormat:@"http://%@.%@%@",self.bucket,self.img_oss_url,url];
                         [urls addObject:newUrl];
                     }
                 }
