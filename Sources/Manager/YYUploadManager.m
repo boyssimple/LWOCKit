@@ -141,4 +141,21 @@
         }
     }
 }
+
+/**
+ 多文件上传
+ 
+ @param datas 文件数组
+ @param type 上传类型
+ @param vc 所属vc
+ @param complete 完成
+ */
+- (void)asyncUploadDatas:(NSArray<NSData *> *)datas Type:(YYUploadDataType )type
+                  withVC:(UIViewController*)vc
+                complete:(void(^)(NSArray<NSString *> *names,
+                                  YYUploadDataState state,
+                                  NSArray<NSString *> *urls))complete{
+    
+    [self uploadDatas:datas isAsync:YES Type:type withVC:vc complete:complete];
+}
 @end

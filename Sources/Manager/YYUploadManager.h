@@ -30,10 +30,34 @@ typedef NS_ENUM(NSInteger, YYUploadDataType) {
 
 + (instancetype)shared;
 
+/**
+ 文件上传
+ 
+ @param data 文件
+ @param type 上传类型
+ @param vc 所属vc
+ @param complete 完成
+ */
 - (void)asyncUploadData:(NSData *)data Type:(YYUploadDataType )type
                  withVC:(UIViewController*)vc
                complete:(void(^)(NSArray<NSString *> *names,
                                  YYUploadDataState state,
                                  NSArray<NSString *> *urls))complete;
+
+
+/**
+ 多文件上传
+ 
+ @param datas 文件数组
+ @param type 上传类型
+ @param vc 所属vc
+ @param complete 完成
+ */
+- (void)asyncUploadDatas:(NSArray<NSData *> *)datas Type:(YYUploadDataType )type
+                  withVC:(UIViewController*)vc
+                complete:(void(^)(NSArray<NSString *> *names,
+                                  YYUploadDataState state,
+                                  NSArray<NSString *> *urls))complete;
+
 @end
 
