@@ -22,6 +22,9 @@ typedef NS_OPTIONS(NSUInteger, RequestSerializerType) {
 //状态参数名
 @property (nonatomic, strong) NSString *status;//默认为@"code" (code == 200 请求成功)
 
+//成功状态码
+@property (nonatomic, assign) NSInteger successCode;//200 //表示成功
+
 //错误message参数名
 @property (nonatomic, strong) NSString *message;//默认为@"msg" (msg = @"参数未传递")
 

@@ -32,6 +32,7 @@ static NSString *const DEFAULT_MESSAGE_STRING = @"msg";
         self.message = DEFAULT_MESSAGE_STRING;
         self.headers = [[NSMutableDictionary alloc]init];
         self.expireCode = 401;
+        self.successCode = 200;
     }
     return self;
 }

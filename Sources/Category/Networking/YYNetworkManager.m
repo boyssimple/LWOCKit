@@ -327,7 +327,7 @@ static NSTimeInterval   requestTimeout = 20.f;
         if (!error) {
             if (responseObject){
                 
-                if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 200){
+                if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == [YYNetworkingConfig shareInstance].successCode){
                     if ([obj isCache]) {
                         [[YYDBManager defaultDataStore] saveDataToTable:responseObject withTableKey:obj];
                     }
@@ -463,7 +463,7 @@ static NSTimeInterval   requestTimeout = 20.f;
         if (!error) {
             if (responseObject){
                 
-                if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 200){
+                if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == [YYNetworkingConfig shareInstance].successCode){
                     if ([obj isCache]) {
                         [[YYDBManager defaultDataStore] saveDataToTable:responseObject withTableKey:obj];
                     }
@@ -597,7 +597,7 @@ static NSTimeInterval   requestTimeout = 20.f;
         if (!error) {
             if (responseObject){
                 
-                if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 200){
+                if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == [YYNetworkingConfig shareInstance].successCode){
                     if ([obj isCache]) {
                         [[YYDBManager defaultDataStore] saveDataToTable:responseObject withTableKey:obj];
                     }
