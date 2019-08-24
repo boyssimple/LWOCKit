@@ -7,6 +7,8 @@
 //
 
 #import "YYImagePickerManager.h"
+#import <LWOCKit/GlobalDefine.h>
+#import <LWOCKit/UIActionSheet+Blocks.h>
 
 @interface YYImagePickerManager()
 @property (nonatomic, strong) UIViewController *currentVC;
@@ -31,8 +33,22 @@
     [alertController addAction:cancelAction];
     [alertController addAction:albumAction];
     [alertController addAction:cameraAction];
-    [vc presentViewController:alertController animated:YES completion:nil];
-    
+    if (isPad) {
+        [UIActionSheet showInView:vc.view
+                        withTitle:nil
+                cancelButtonTitle:nil
+           destructiveButtonTitle:nil
+                otherButtonTitles:@[@"相册",@"相机",@"取消"]
+                         tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex){ buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+                             if (buttonIndex == 0) {
+                                 [self albumSelectphoto];
+                             }else if(buttonIndex == 1){
+                                 [self cameraShootingphoto];
+                             }
+                         }];
+    }else{
+        [vc presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 

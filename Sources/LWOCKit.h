@@ -38,5 +38,6 @@
 #import "UITextView+PlaceHolder.h"
 #import "YYVersionManager.h"
 #import "YYUploadManager.h"
+#import "UIActionSheet+Blocks.h"
 
 #endif /* LWOCKit_h */
