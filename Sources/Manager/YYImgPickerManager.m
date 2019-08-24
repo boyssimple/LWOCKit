@@ -40,7 +40,6 @@
            destructiveButtonTitle:nil
                 otherButtonTitles:@[@"相册",@"相机",@"取消"]
                          tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex){
-                             NSLog(@"Tapped '%@' at index %ld", [actionSheet buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
                              if (buttonIndex == 0) {
                                  [self albumSelectphoto];
                              }else if(buttonIndex == 1){

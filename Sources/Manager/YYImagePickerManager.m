@@ -39,7 +39,7 @@
                 cancelButtonTitle:nil
            destructiveButtonTitle:nil
                 otherButtonTitles:@[@"相册",@"相机",@"取消"]
-                         tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex){ buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+                         tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex){
                              if (buttonIndex == 0) {
                                  [self albumSelectphoto];
                              }else if(buttonIndex == 1){
