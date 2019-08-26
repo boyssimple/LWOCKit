@@ -33,7 +33,7 @@
     [alertController addAction:cancelAction];
     [alertController addAction:albumAction];
     [alertController addAction:cameraAction];
-    if (isPad) {
+    if (isPadDevice) {
         [UIActionSheet showInView:vc.view
                         withTitle:nil
                 cancelButtonTitle:nil
