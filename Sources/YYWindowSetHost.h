@@ -8,7 +8,12 @@
 
 #import <LWOCKit/YYBaseWindow.h>
 
-@interface YYWindowSetHost : YYBaseWindow
+static UIWindow *yySetHostWindow = nil;
+@interface YYWindowSetHost : UIWindow
 
+- (id)init;
+
+- (void)show;
+- (void)dismiss;
 @end
 
