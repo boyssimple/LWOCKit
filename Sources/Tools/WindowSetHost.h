@@ -11,6 +11,7 @@
 //
 
 #import "YYBaseWindow.h"
+#import <LWOCKit/YYBaseWindow.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
