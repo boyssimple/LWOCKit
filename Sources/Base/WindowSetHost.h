@@ -10,7 +10,7 @@
 //  Copyright © 2019 yanyu. All rights reserved.
 //
 
-#import <LWOCKit/YYBaseWindow.h>
+#import <LWOCKit/LWOCKit.h>
 
 @interface WindowSetHost : YYBaseWindow
 
