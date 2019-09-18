@@ -6,7 +6,7 @@
 //  Copyright © 2019 yanyu. All rights reserved.
 //
 
-#import <LWOCKit/YYBaseWindow.h>
+#import "YYBaseWindow.h"
 
 @interface YYWindowSetHost : YYBaseWindow
 
