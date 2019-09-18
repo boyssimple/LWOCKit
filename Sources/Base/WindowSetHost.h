@@ -10,13 +10,9 @@
 //  Copyright © 2019 yanyu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <LWOCKit/YYBaseWindow.h>
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface WindowSetHost : YYBaseWindow
 
 @end
 
-NS_ASSUME_NONNULL_END
