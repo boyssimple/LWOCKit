@@ -10,7 +10,8 @@
 //  Copyright © 2019 yanyu. All rights reserved.
 //
 
-#import "YYBaseWindow.h"
+#import <UIKit/UIKit.h>
+#import <LWOCKit/YYBaseWindow.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
