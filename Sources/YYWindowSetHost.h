@@ -8,7 +8,7 @@
 
 #import <LWOCKit/YYBaseWindow.h>
 
-@interface YYWindowSetHost : NSObject
+@interface YYWindowSetHost : YYBaseWindow
 
 @end
 
