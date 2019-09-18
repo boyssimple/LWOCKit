@@ -37,4 +37,11 @@ static NSString *const DEFAULT_MESSAGE_STRING = @"msg";
     return self;
 }
 
+- (NSString*)hostUrl{
+    id has = [[NSUserDefaults standardUserDefaults] objectForKey:@"net_working_config_host"];
+    if (has) {
+        [YYNetworkingConfig shareInstance].hostUrl = has;
+    }
+    return _hostUrl;
+}
 @end
