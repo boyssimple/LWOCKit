@@ -171,8 +171,7 @@
     if (sender.tag == 100) {
         [self dismiss];
     }else{
-        [YYNetworkingConfig shareInstance].hostUrl = [self.tfText.text trim];
-        [[NSUserDefaults standardUserDefaults] setObject:[YYNetworkingConfig shareInstance].hostUrl forKey:@"net_working_config_host"];
+        [[NSUserDefaults standardUserDefaults] setObject:[self.tfText.text trim] forKey:@"net_working_config_host"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self dismiss];
     }
