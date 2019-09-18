@@ -38,6 +38,6 @@
 #import "YYVersionManager.h"
 #import "YYUploadManager.h"
 #import "UIActionSheet+Blocks.h"
-#import "WindowSetHost.h"
+#import "YYWindowSetHost.h"
 
 #endif /* LWOCKitConfig_h */
