@@ -611,13 +611,13 @@ static NSTimeInterval   requestTimeout = 20.f;
                         [YYNetworkingConfig shareInstance].loginExpireBlock(response, responseObject);
                     }
                     if (failBlock) {
-                        failBlock(error,response);
+                        failBlock(error,responseObject);
                     }
                     [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }else if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 5) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USERLOGINFAILED object:nil];
                     if (failBlock) {
-                        failBlock(error,response);
+                        failBlock(error,responseObject);
                     }
                     [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }else{
@@ -626,7 +626,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                         
                     }];
                     if (failBlock) {
-                        failBlock(error,response);
+                        failBlock(error,responseObject);
                     }
                     [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
                 }
