@@ -169,3 +169,7 @@
 @interface UIColor (extension)
 - (UIImage *)parseToImage;
 @end
+
+@interface UITextField (extension)
+@property (nonatomic, strong) UIColor *placeholderColor;        //placeholder 颜色设置
+@end

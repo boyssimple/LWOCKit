@@ -564,3 +564,19 @@
     return image;
 }
 @end
+
+@implementation UITextField (extension)
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor{
+    objc_setAssociatedObject(self, @selector(placeholderColor), placeholderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Ivar ivar =  class_getInstanceVariable([UITextField class], "_placeholderLabel");
+
+    UILabel *placeholderLabel = object_getIvar(self, ivar);
+    placeholderLabel.textColor = placeholderColor;
+}
+
+- (UIColor *)placeholderColor{
+    return objc_getAssociatedObject(self, @selector(placeholderColor));
+}
+
+@end
