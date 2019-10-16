@@ -8,6 +8,7 @@
 
 #import "YYMapNavManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <LWOCKit/MBProgressHUD+YY.h>
 
 @interface YYMapNavManager()<UIActionSheetDelegate>
 @property(nonatomic,strong)NSString *address;
