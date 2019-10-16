@@ -7,6 +7,8 @@
 //
 
 #import "YYMapNavManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
 @interface YYMapNavManager()<UIActionSheetDelegate>
 @property(nonatomic,strong)NSString *address;
 @property(nonatomic,strong)UIView *view;
