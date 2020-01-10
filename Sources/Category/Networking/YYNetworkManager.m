@@ -362,9 +362,11 @@ static NSTimeInterval   requestTimeout = 20.f;
                 }
             }
         }else{
-            [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
-                
-            }];
+            if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
+                [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
+                    
+                }];
+            }
             [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error);
@@ -498,9 +500,11 @@ static NSTimeInterval   requestTimeout = 20.f;
                 }
             }
         }else{
-            [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
-                
-            }];
+             if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
+               [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
+                   
+               }];
+            }
             [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error,0);
@@ -632,9 +636,11 @@ static NSTimeInterval   requestTimeout = 20.f;
                 }
             }
         }else{
-            [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
-                
-            }];
+            if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
+                [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
+                    
+                }];
+            }
             [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error,0);

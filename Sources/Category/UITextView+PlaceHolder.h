@@ -13,5 +13,11 @@
 
 @property (nonatomic, copy) NSString *placeHolder;
 @property (nonatomic, copy) UIColor *placeHolderColor;
-@property (nonatomic, strong) UIFont *font;
+//@property (nonatomic, strong) UIFont *font;
+//当设置placeHolder是，请使用updateFont设置字体大小
+- (void)updateFont:(UIFont *)font;
+//当设置placeHolder是，请使用updateText设置值
+-(void)updateText:(NSString *)text;
+//当设置placeHolder是，请最后调用以便设置高度
+- (void)updatePlaceHeights:(CGFloat)maxWights;
 @end

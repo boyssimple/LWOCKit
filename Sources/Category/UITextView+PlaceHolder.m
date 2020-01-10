@@ -24,6 +24,11 @@ static const void *textView_Font_key = @"placeHolderFont";
     if (placeHolder != self.placeHolder) {
         objc_setAssociatedObject(self, textView_key, placeHolder, OBJC_ASSOCIATION_COPY_NONATOMIC);
         
+        UILabel *lbPlace = [self viewWithTag:10000];
+        if (lbPlace) {
+            [lbPlace removeFromSuperview];
+        }
+        
         UILabel *placeHolderLb = [[UILabel alloc] initWithFrame:CGRectMake(2, 7, kScreenW-2*16, 21)];
         placeHolderLb.tag = 10000;
         placeHolderLb.contentMode = UIViewContentModeTop;
@@ -39,24 +44,65 @@ static const void *textView_Font_key = @"placeHolderFont";
     }
 }
 
+- (CGFloat)getStringHeightWithText:(NSString *)text font:(UIFont *)font viewWidth:(CGFloat)width {
+    // 设置文字属性 要和label的一致
+    NSDictionary *attrs = @{NSFontAttributeName :font};
+    CGSize maxSize = CGSizeMake(width, MAXFLOAT);
+
+    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+
+    // 计算文字占据的宽高
+    CGSize size = [text boundingRectWithSize:maxSize options:options attributes:attrs context:nil].size;
+
+   // 当你是把获得的高度来布局控件的View的高度的时候.size转化为ceilf(size.height)。
+    return  ceilf(size.height);
+}
+
 - (NSString *)placeHolder
 {
     return objc_getAssociatedObject(self, textView_key);
 }
 
 
-- (void)setFont:(UIFont *)font{
-    if (font != self.font) {
-        objc_setAssociatedObject(self, textView_Font_key, font, OBJC_ASSOCIATION_COPY_NONATOMIC);
-        UILabel *lb = [self viewWithTag:10000];
-        if (lb) {
-            lb.font = font;
-        }
+//- (void)setFont:(UIFont *)font{
+//    if (font != self.font) {
+//        objc_setAssociatedObject(self, textView_Font_key, font, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//        UILabel *lb = [self viewWithTag:10000];
+//        if (lb) {
+//            lb.font = font;
+//        }
+//    }
+//}
+//
+//- (UIFont *)font{
+//    return objc_getAssociatedObject(self, textView_Font_key);
+//}
+
+//当设置placeHolder是，请使用updateFont设置字体大小
+- (void)updateFont:(UIFont *)font{
+    self.font = font;
+    UILabel *lb = [self viewWithTag:10000];
+    if (lb) {
+        lb.font = font;
     }
 }
 
-- (UIFont *)font{
-    return objc_getAssociatedObject(self, textView_Font_key);
+//当设置placeHolder是，请最后调用以便设置高度
+- (void)updatePlaceHeights:(CGFloat)maxWights{
+    UILabel *lb = [self viewWithTag:10000];
+    if (lb) {
+        CGFloat placeHeights = [self getStringHeightWithText:self.placeHolder font:self.font viewWidth:maxWights];
+        lb.frame = CGRectMake(2, 7, maxWights, placeHeights);
+    }
+}
+
+//当设置placeHolder是，请使用updateText设置值
+-(void)updateText:(NSString *)text {
+    self.text = text;
+    UILabel *lb = [self viewWithTag:10000];
+    if (lb) {
+        lb.hidden = text.length == 0 ? FALSE:TRUE;
+    }
 }
 
 - (void)setPlaceHolderColor:(UIColor *)placeHolderColor{

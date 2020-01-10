@@ -37,4 +37,8 @@ typedef NS_OPTIONS(NSUInteger, RequestSerializerType) {
 //处理登录失效
 @property (nonatomic, assign) NSInteger expireCode;         //失效code 默认401
 @property (nonatomic, strong) void (^loginExpireBlock)(NSURLResponse * _Nonnull response, id  _Nullable responseObject);//失效回调
+
+
+//隐藏请求失败hud
+@property (nonatomic, assign) BOOL isHiddenRequestFailHud;         //是否隐藏请求失败hud
 @end
