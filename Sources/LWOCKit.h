@@ -22,7 +22,6 @@
 #import "YYDataManageEntity.h"
 #import "YYDataManager.h"
 #import "YYDataAutoManager.h"
-#import "UITextField+YY.h"
 #import "YYCollectionDataManager.h"
 #import "UIButton+Custom.h"
 #import "YYPageControllerManager.h"
