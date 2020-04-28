@@ -58,7 +58,18 @@
             [alertController addAction:okAction];
             [alertController addAction:cancelAction];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+            return;
         }
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"APP已是最新"
+                                                                                    message:notesStr
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+        
+           UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+               NSLog(@"Cancel Action");
+           }];
+           
+           [alertController addAction:cancelAction];
+           [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     }
     
 }
