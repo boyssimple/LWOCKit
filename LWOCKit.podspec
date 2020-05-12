@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "LWOCKit"
-  s.version      = "0.0.79" 
+  s.version      = "0.0.791" 
   s.summary      = "LWOCKit"
 
   # This description is used to generate tags and improve search results.
