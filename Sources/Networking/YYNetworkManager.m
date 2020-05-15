@@ -218,7 +218,31 @@ static NSTimeInterval   requestTimeout = 20.f;
     requestSerializer.timeoutInterval = requestTimeout;
     requestSerializer.stringEncoding = NSUTF8StringEncoding;
     
-    NSMutableURLRequest *request = [requestSerializer requestWithMethod:method URLString:url parameters:params error:nil];
+    NSMutableURLRequest *request;
+    
+    if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
+        AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
+        requestSerializer.timeoutInterval = requestTimeout;
+        requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        //Header
+        NSArray * array = [[YYNetworkingConfig shareInstance].headers allKeys];
+        for (NSString * key in array) {
+            NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
+            [requestSerializer setValue:v forHTTPHeaderField:key];
+        }
+        request = [requestSerializer requestWithMethod:method URLString:url parameters:params error:nil];
+    }else{
+        AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
+        requestSerializer.timeoutInterval = requestTimeout;
+        requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        //Header
+        NSArray * array = [[YYNetworkingConfig shareInstance].headers allKeys];
+        for (NSString * key in array) {
+            NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
+            [requestSerializer setValue:v forHTTPHeaderField:key];
+        }
+        request = [requestSerializer requestWithMethod:method URLString:url parameters:params error:nil];
+    }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
         
