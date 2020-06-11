@@ -40,5 +40,6 @@
 #import "UIActionSheet+Blocks.h"
 #import "YYWindowSetHost.h"
 #import "YYMapNavManager.h"
+#import "SQLocationManager.h"
 
 #endif /* LWOCKit_h */
