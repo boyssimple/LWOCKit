@@ -159,6 +159,7 @@ static NSTimeInterval   requestTimeout = 20.f;
         [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
         hud.label.text = @"下载中...";
         hud.bezelView.backgroundColor = [UIColor blackColor];
+        hud.bezelView.blurEffectStyle = UIBlurEffectStyleDark;
         hud.label.textColor = [UIColor whiteColor];
     }
     
@@ -302,6 +303,7 @@ static NSTimeInterval   requestTimeout = 20.f;
             [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
             
             hud.bezelView.backgroundColor = [UIColor blackColor];
+            hud.bezelView.blurEffectStyle = UIBlurEffectStyleDark;
             hud.label.textColor = [UIColor whiteColor];
             if ([obj hudTips]) {
                 hud.label.text = [obj hudTips];
@@ -440,6 +442,7 @@ static NSTimeInterval   requestTimeout = 20.f;
             [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
             
             hud.bezelView.backgroundColor = [UIColor blackColor];
+            hud.bezelView.blurEffectStyle = UIBlurEffectStyleDark;
             hud.label.textColor = [UIColor whiteColor];
             if ([obj hudTips]) {
                 hud.label.text = [obj hudTips];
@@ -576,6 +579,7 @@ static NSTimeInterval   requestTimeout = 20.f;
             [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
             
             hud.bezelView.backgroundColor = [UIColor blackColor];
+            hud.bezelView.blurEffectStyle = UIBlurEffectStyleDark;
             hud.label.textColor = [UIColor whiteColor];
             if ([obj hudTips]) {
                 hud.label.text = [obj hudTips];
