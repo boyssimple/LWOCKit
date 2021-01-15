@@ -315,6 +315,13 @@ static NSTimeInterval   requestTimeout = 20.f;
     if (params) {
         [params removeObjectForKey:@"isHiddenHud"];
     }
+    //处理替换id情况
+    if([YYNetworkingConfig shareInstance].replaceAttr != nil){
+        if([[params allKeys] containsObject:[YYNetworkingConfig shareInstance].replaceAttr]){
+            [params setObject:[params objectForKey:[YYNetworkingConfig shareInstance].replaceAttr] forKey:@"id"];
+        }
+    }
+    
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
@@ -454,6 +461,12 @@ static NSTimeInterval   requestTimeout = 20.f;
     if (params) {
         [params removeObjectForKey:@"isHiddenHud"];
     }
+    //处理替换id情况
+    if([YYNetworkingConfig shareInstance].replaceAttr != nil){
+        if([[params allKeys] containsObject:[YYNetworkingConfig shareInstance].replaceAttr]){
+            [params setObject:[params objectForKey:[YYNetworkingConfig shareInstance].replaceAttr] forKey:@"id"];
+        }
+    }
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
@@ -590,6 +603,12 @@ static NSTimeInterval   requestTimeout = 20.f;
     NSMutableDictionary *params = [obj.mj_keyValues mutableCopy];
     if (params) {
         [params removeObjectForKey:@"isHiddenHud"];
+    }
+    //处理替换id情况
+    if([YYNetworkingConfig shareInstance].replaceAttr != nil){
+        if([[params allKeys] containsObject:[YYNetworkingConfig shareInstance].replaceAttr]){
+            [params setObject:[params objectForKey:[YYNetworkingConfig shareInstance].replaceAttr] forKey:@"id"];
+        }
     }
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {

@@ -41,4 +41,8 @@ typedef NS_OPTIONS(NSUInteger, RequestSerializerType) {
 
 //隐藏请求失败hud
 @property (nonatomic, assign) BOOL isHiddenRequestFailHud;         //是否隐藏请求失败hud
+
+
+//由于java后台一般使用id做为主键，所以导致参数有问题
+@property (nonatomic, strong) NSString *replaceAttr;                //默认将ID转成id
 @end
