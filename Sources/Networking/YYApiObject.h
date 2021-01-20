@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 结合接口名称生成单次请求(表中单条数据)的唯一key  默认@""*/
 - (NSString*)getItemIDExt;
+
+//是否restful风格/api/user/delete/1
+- (BOOL)isRestful;
 @end
 
 NS_ASSUME_NONNULL_END

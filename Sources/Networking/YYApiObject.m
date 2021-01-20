@@ -47,4 +47,9 @@
     }
     return @"";
 }
+
+//是否restful风格/api/user/delete/1
+- (BOOL)isRestful{
+    return FALSE;
+}
 @end

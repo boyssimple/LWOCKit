@@ -326,7 +326,16 @@ static NSTimeInterval   requestTimeout = 20.f;
             NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
-        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        if ([obj isRestful]) {
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
+            
+        }else{
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        }
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
@@ -337,7 +346,17 @@ static NSTimeInterval   requestTimeout = 20.f;
             NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
-        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        
+        if ([obj isRestful]) {
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
+            
+        }else{
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        }
     }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
@@ -475,7 +494,17 @@ static NSTimeInterval   requestTimeout = 20.f;
             NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
-        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        
+        if ([obj isRestful]) {
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
+            
+        }else{
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        }
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
@@ -486,7 +515,17 @@ static NSTimeInterval   requestTimeout = 20.f;
             NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
-        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        
+        if ([obj isRestful]) {
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
+            
+        }else{
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        }
     }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
@@ -620,7 +659,17 @@ static NSTimeInterval   requestTimeout = 20.f;
             NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
-        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        
+        if ([obj isRestful]) {
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
+            
+        }else{
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        }
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
@@ -631,7 +680,17 @@ static NSTimeInterval   requestTimeout = 20.f;
             NSString *v = [[YYNetworkingConfig shareInstance].headers objectForKey:key];
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
-        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        
+        if ([obj isRestful]) {
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
+            
+        }else{
+            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+        }
     }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
