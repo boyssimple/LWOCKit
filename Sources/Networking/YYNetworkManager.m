@@ -315,13 +315,6 @@ static NSTimeInterval   requestTimeout = 20.f;
     if (params) {
         [params removeObjectForKey:@"isHiddenHud"];
     }
-    //处理替换id情况
-    if([YYNetworkingConfig shareInstance].replaceAttr != nil){
-        if([[params allKeys] containsObject:[YYNetworkingConfig shareInstance].replaceAttr]){
-            [params setObject:[params objectForKey:[YYNetworkingConfig shareInstance].replaceAttr] forKey:@"id"];
-        }
-    }
-    
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
@@ -395,6 +388,16 @@ static NSTimeInterval   requestTimeout = 20.f;
                 }
             }
         }else{
+            //处理登录失效问题
+            NSHTTPURLResponse *res =  (NSHTTPURLResponse*)response;
+            if(res && res.statusCode == [YYNetworkingConfig shareInstance].expireCode){
+                //处理失效回调
+                if ([YYNetworkingConfig shareInstance].loginExpireBlock) {
+                    [YYNetworkingConfig shareInstance].loginExpireBlock(response, responseObject);
+                }
+                return;
+            }
+
             if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
                 [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
                     
@@ -461,12 +464,6 @@ static NSTimeInterval   requestTimeout = 20.f;
     if (params) {
         [params removeObjectForKey:@"isHiddenHud"];
     }
-    //处理替换id情况
-    if([YYNetworkingConfig shareInstance].replaceAttr != nil){
-        if([[params allKeys] containsObject:[YYNetworkingConfig shareInstance].replaceAttr]){
-            [params setObject:[params objectForKey:[YYNetworkingConfig shareInstance].replaceAttr] forKey:@"id"];
-        }
-    }
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
@@ -540,7 +537,15 @@ static NSTimeInterval   requestTimeout = 20.f;
                 }
             }
         }else{
-             if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
+            NSHTTPURLResponse *res =  (NSHTTPURLResponse*)response;
+            if(res && res.statusCode == [YYNetworkingConfig shareInstance].expireCode){
+                //处理失效回调
+                if ([YYNetworkingConfig shareInstance].loginExpireBlock) {
+                    [YYNetworkingConfig shareInstance].loginExpireBlock(response, responseObject);
+                }
+                return;
+            }
+            if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
                [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
                    
                }];
@@ -604,12 +609,6 @@ static NSTimeInterval   requestTimeout = 20.f;
     if (params) {
         [params removeObjectForKey:@"isHiddenHud"];
     }
-    //处理替换id情况
-    if([YYNetworkingConfig shareInstance].replaceAttr != nil){
-        if([[params allKeys] containsObject:[YYNetworkingConfig shareInstance].replaceAttr]){
-            [params setObject:[params objectForKey:[YYNetworkingConfig shareInstance].replaceAttr] forKey:@"id"];
-        }
-    }
     NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
     if ([YYNetworkingConfig shareInstance].requestSerializerType == RequestSerializerTypeHttp) {
         AFHTTPRequestSerializer *requestSerializer =  [AFHTTPRequestSerializer serializer];
@@ -683,6 +682,14 @@ static NSTimeInterval   requestTimeout = 20.f;
                 }
             }
         }else{
+            NSHTTPURLResponse *res =  (NSHTTPURLResponse*)response;
+            if(res && res.statusCode == [YYNetworkingConfig shareInstance].expireCode){
+                //处理失效回调
+                if ([YYNetworkingConfig shareInstance].loginExpireBlock) {
+                    [YYNetworkingConfig shareInstance].loginExpireBlock(response, responseObject);
+                }
+                return;
+            }
             if (![YYNetworkingConfig shareInstance].isHiddenRequestFailHud) {
                 [MBProgressHUD showError:@"连接服务器失败" toView:view timeDelay:2.0 finishBlock:^{
                     
