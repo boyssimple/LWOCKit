@@ -54,8 +54,9 @@
 }
 
 //restful风格参数序列
-- (NSArray*)restfulParams{
+- (NSArray*)restfulParam{
     return @[];
 }
+
 @end
  

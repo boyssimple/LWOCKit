@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isRestful;
 
 //restful风格参数序列
-- (NSArray*)restFulParams;
+- (NSArray*)restfulParam;
 @end
 
 NS_ASSUME_NONNULL_END

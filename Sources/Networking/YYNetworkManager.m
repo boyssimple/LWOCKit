@@ -328,18 +328,18 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
         if ([obj isRestful]) {
             //处理restful参数
-            if ([obj restFulParams].count > 0) {
-                for (NSString *key in [obj restFulParams]) {
+            if ([obj restfulParam].count > 0) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 //去掉除restful参数
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [params removeObjectForKey:key];
                 }
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -362,18 +362,18 @@ static NSTimeInterval   requestTimeout = 20.f;
         
         if ([obj isRestful]) {
             //处理restful参数
-            if ([obj restFulParams].count > 0) {
-                for (NSString *key in [obj restFulParams]) {
+            if ([obj restfulParam].count > 0) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 //去掉除restful参数
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [params removeObjectForKey:key];
                 }
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -523,18 +523,18 @@ static NSTimeInterval   requestTimeout = 20.f;
         
         if ([obj isRestful]) {
             //处理restful参数
-            if ([obj restFulParams].count > 0) {
-                for (NSString *key in [obj restFulParams]) {
+            if ([obj restfulParam].count > 0) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 //去掉除restful参数
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [params removeObjectForKey:key];
                 }
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -557,18 +557,18 @@ static NSTimeInterval   requestTimeout = 20.f;
         
         if ([obj isRestful]) {
             //处理restful参数
-            if ([obj restFulParams].count > 0) {
-                for (NSString *key in [obj restFulParams]) {
+            if ([obj restfulParam].count > 0) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 //去掉除restful参数
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [params removeObjectForKey:key];
                 }
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -714,18 +714,18 @@ static NSTimeInterval   requestTimeout = 20.f;
         
         if ([obj isRestful]) {
             //处理restful参数
-            if ([obj restFulParams].count > 0) {
-                for (NSString *key in [obj restFulParams]) {
+            if ([obj restfulParam].count > 0) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 //去掉除restful参数
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [params removeObjectForKey:key];
                 }
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -748,18 +748,18 @@ static NSTimeInterval   requestTimeout = 20.f;
         
         if ([obj isRestful]) {
             //处理restful参数
-            if ([obj restFulParams].count > 0) {
-                for (NSString *key in [obj restFulParams]) {
+            if ([obj restfulParam].count > 0) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 //去掉除restful参数
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [params removeObjectForKey:key];
                 }
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restFulParams]) {
+                for (NSString *key in [obj restfulParam]) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
