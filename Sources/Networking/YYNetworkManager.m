@@ -339,7 +339,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restfulParam]) {
+                NSArray *allKeys = [params allKeys];
+                for (NSString *key in allKeys) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -373,7 +374,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restfulParam]) {
+                NSArray *allKeys = [params allKeys];
+                for (NSString *key in allKeys) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -534,7 +536,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restfulParam]) {
+                NSArray *allKeys = [params allKeys];
+                for (NSString *key in allKeys) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -568,7 +571,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restfulParam]) {
+                NSArray *allKeys = [params allKeys];
+                for (NSString *key in allKeys) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -725,7 +729,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restfulParam]) {
+                NSArray *allKeys = [params allKeys];
+                for (NSString *key in allKeys) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
@@ -759,7 +764,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                 
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
-                for (NSString *key in [obj restfulParam]) {
+                NSArray *allKeys = [params allKeys];
+                for (NSString *key in allKeys) {
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
