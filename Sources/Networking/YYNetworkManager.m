@@ -327,15 +327,16 @@ static NSTimeInterval   requestTimeout = 20.f;
             [requestSerializer setValue:v forHTTPHeaderField:key];
         }
         if ([obj isRestful]) {
-            NSArray *allKeys = [params allKeys];
-            for (NSString *key in allKeys) {
+            //处理restful参数
+            for (NSString *key in [obj restFulParams]) {
                 [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
             }
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
-            
-        }else{
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+            //去掉除restful参数
+            for (NSString *key in [obj restFulParams]) {
+                [params removeObjectForKey:key];
+            }
         }
+        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
@@ -348,15 +349,16 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
         
         if ([obj isRestful]) {
-            NSArray *allKeys = [params allKeys];
-            for (NSString *key in allKeys) {
+            //处理restful参数
+            for (NSString *key in [obj restFulParams]) {
                 [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
             }
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
-            
-        }else{
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+            //去掉除restful参数
+            for (NSString *key in [obj restFulParams]) {
+                [params removeObjectForKey:key];
+            }
         }
+        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
@@ -496,15 +498,16 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
         
         if ([obj isRestful]) {
-            NSArray *allKeys = [params allKeys];
-            for (NSString *key in allKeys) {
+            //处理restful参数
+            for (NSString *key in [obj restFulParams]) {
                 [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
             }
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
-            
-        }else{
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+            //去掉除restful参数
+            for (NSString *key in [obj restFulParams]) {
+                [params removeObjectForKey:key];
+            }
         }
+        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
@@ -517,15 +520,16 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
         
         if ([obj isRestful]) {
-            NSArray *allKeys = [params allKeys];
-            for (NSString *key in allKeys) {
+            //处理restful参数
+            for (NSString *key in [obj restFulParams]) {
                 [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
             }
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
-            
-        }else{
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+            //去掉除restful参数
+            for (NSString *key in [obj restFulParams]) {
+                [params removeObjectForKey:key];
+            }
         }
+        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
@@ -661,15 +665,16 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
         
         if ([obj isRestful]) {
-            NSArray *allKeys = [params allKeys];
-            for (NSString *key in allKeys) {
+            //处理restful参数
+            for (NSString *key in [obj restFulParams]) {
                 [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
             }
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
-            
-        }else{
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+            //去掉除restful参数
+            for (NSString *key in [obj restFulParams]) {
+                [params removeObjectForKey:key];
+            }
         }
+        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }else{
         AFJSONRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
         requestSerializer.timeoutInterval = requestTimeout;
@@ -682,15 +687,16 @@ static NSTimeInterval   requestTimeout = 20.f;
         }
         
         if ([obj isRestful]) {
-            NSArray *allKeys = [params allKeys];
-            for (NSString *key in allKeys) {
+            //处理restful参数
+            for (NSString *key in [obj restFulParams]) {
                 [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
             }
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
-            
-        }else{
-            request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
+            //去掉除restful参数
+            for (NSString *key in [obj restFulParams]) {
+                [params removeObjectForKey:key];
+            }
         }
+        request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
     }
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {

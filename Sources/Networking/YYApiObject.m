@@ -52,4 +52,10 @@
 - (BOOL)isRestful{
     return FALSE;
 }
+
+//restful风格参数序列
+- (NSArray*)restfulParams{
+    return @[];
+}
 @end
+ 

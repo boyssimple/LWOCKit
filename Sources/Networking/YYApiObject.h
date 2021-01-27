@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //是否restful风格/api/user/delete/1
 - (BOOL)isRestful;
+
+//restful风格参数序列
+- (NSArray*)restFulParams;
 @end
 
 NS_ASSUME_NONNULL_END
