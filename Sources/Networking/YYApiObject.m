@@ -58,5 +58,9 @@
     return @[];
 }
 
+//query参数序列
+- (NSArray*)queryParams{
+    return @[];
+}
 @end
  

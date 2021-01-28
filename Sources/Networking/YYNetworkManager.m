@@ -337,6 +337,18 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [params removeObjectForKey:key];
                 }
                 
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
+                
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
                 NSArray *allKeys = [params allKeys];
@@ -344,10 +356,33 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
+                
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
             }
         
         }else{
+            for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                NSString *key = [[obj queryParams] objectAtIndex:i];
+                if (i == 0) {
+                    [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                }else{
+                    [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                }
+            }
+            for (NSString *key in [obj queryParams]) {
+                [params removeObjectForKey:key];
+            }
             request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
         }
     }else{
@@ -372,6 +407,18 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [params removeObjectForKey:key];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
                 NSArray *allKeys = [params allKeys];
@@ -379,10 +426,35 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
             }
         
         }else{
+            
+            
+            for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                NSString *key = [[obj queryParams] objectAtIndex:i];
+                if (i == 0) {
+                    [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                }else{
+                    [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                }
+            }
+            for (NSString *key in [obj queryParams]) {
+                [params removeObjectForKey:key];
+            }
             request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
         }
     }
@@ -404,7 +476,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if ([obj isCache]) {
                         [[YYDBManager defaultDataStore] saveDataToTable:responseObject withTableKey:obj];
                     }
-                    [self successNetworking:name url:[obj apiUrl] param:params result:responseObject];
+                    [self successNetworking:name obj:obj result:responseObject];
                     if (successBlock) {
                         successBlock(responseObject);
                     }
@@ -416,13 +488,13 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }else if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 5) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USERLOGINFAILED object:nil];
                     if (failBlock) {
                         failBlock(error);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }else{
                     NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
@@ -431,7 +503,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }
             }
         }else{
@@ -450,7 +522,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     
                 }];
             }
-            [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+            [self failureNetworking:name obj:obj result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error);
             }
@@ -534,6 +606,19 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [params removeObjectForKey:key];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
+                
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
                 NSArray *allKeys = [params allKeys];
@@ -541,10 +626,35 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
             }
         
         }else{
+            
+            
+            for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                NSString *key = [[obj queryParams] objectAtIndex:i];
+                if (i == 0) {
+                    [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                }else{
+                    [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                }
+            }
+            for (NSString *key in [obj queryParams]) {
+                [params removeObjectForKey:key];
+            }
             request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
         }
     }else{
@@ -569,6 +679,18 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [params removeObjectForKey:key];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
                 NSArray *allKeys = [params allKeys];
@@ -576,10 +698,35 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
             }
         
         }else{
+            
+            
+            for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                NSString *key = [[obj queryParams] objectAtIndex:i];
+                if (i == 0) {
+                    [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                }else{
+                    [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                }
+            }
+            for (NSString *key in [obj queryParams]) {
+                [params removeObjectForKey:key];
+            }
             request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
         }
     }
@@ -601,7 +748,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if ([obj isCache]) {
                         [[YYDBManager defaultDataStore] saveDataToTable:responseObject withTableKey:obj];
                     }
-                    [self successNetworking:name url:[obj apiUrl] param:params result:responseObject];
+                    [self successNetworking:name obj:obj result:responseObject];
                     if (successBlock) {
                         successBlock(responseObject);
                     }
@@ -613,13 +760,13 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error,[responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status]);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }else if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 5) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USERLOGINFAILED object:nil];
                     if (failBlock) {
                         failBlock(error,[responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status]);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }else{
                     NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
@@ -628,7 +775,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error,[responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status]);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }
             }
         }else{
@@ -645,7 +792,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                    
                }];
             }
-            [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+            [self failureNetworking:name obj:obj result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error,0);
             }
@@ -727,6 +874,18 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [params removeObjectForKey:key];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
                 NSArray *allKeys = [params allKeys];
@@ -734,10 +893,35 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
             }
         
         }else{
+            
+            
+            for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                NSString *key = [[obj queryParams] objectAtIndex:i];
+                if (i == 0) {
+                    [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                }else{
+                    [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                }
+            }
+            for (NSString *key in [obj queryParams]) {
+                [params removeObjectForKey:key];
+            }
             request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
         }
     }else{
@@ -762,6 +946,18 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [params removeObjectForKey:key];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
             }else{
                 NSArray *allKeys = [params allKeys];
@@ -769,10 +965,35 @@ static NSTimeInterval   requestTimeout = 20.f;
                     [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
                 }
                 
+                
+                for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                    NSString *key = [[obj queryParams] objectAtIndex:i];
+                    if (i == 0) {
+                        [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                    }else{
+                        [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                    }
+                }
+                for (NSString *key in [obj queryParams]) {
+                    [params removeObjectForKey:key];
+                }
                 request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:nil error:nil];
             }
         
         }else{
+            
+            
+            for (NSInteger i = 0; i< [obj queryParams].count; i++) {
+                NSString *key = [[obj queryParams] objectAtIndex:i];
+                if (i == 0) {
+                    [requestUrl appendFormat:@"?%@=%@",key,[params objectForKey:key]];
+                }else{
+                    [requestUrl appendFormat:@"&%@=%@",key,[params objectForKey:key]];
+                }
+            }
+            for (NSString *key in [obj queryParams]) {
+                [params removeObjectForKey:key];
+            }
             request = [requestSerializer requestWithMethod:[obj method] URLString:requestUrl parameters:params error:nil];
         }
     }
@@ -794,7 +1015,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if ([obj isCache]) {
                         [[YYDBManager defaultDataStore] saveDataToTable:responseObject withTableKey:obj];
                     }
-                    [self successNetworking:name url:[obj apiUrl] param:params result:responseObject];
+                    [self successNetworking:name obj:obj result:responseObject];
                     if (successBlock) {
                         successBlock(responseObject);
                     }
@@ -806,13 +1027,13 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error,responseObject);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }else if ([responseObject jk_integerForKey:[YYNetworkingConfig shareInstance].status] == 5) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USERLOGINFAILED object:nil];
                     if (failBlock) {
                         failBlock(error,responseObject);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }else{
                     NSString *message = [responseObject jk_stringForKey:[YYNetworkingConfig shareInstance].message];
                     [MBProgressHUD showError:message toView:view timeDelay:2.0 finishBlock:^{
@@ -821,7 +1042,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     if (failBlock) {
                         failBlock(error,responseObject);
                     }
-                    [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+                    [self failureNetworking:name obj:obj result:error withResponse:responseObject];
                 }
             }
         }else{
@@ -838,7 +1059,7 @@ static NSTimeInterval   requestTimeout = 20.f;
                     
                 }];
             }
-            [self failureNetworking:name url:[obj apiUrl] param:params result:error withResponse:responseObject];
+            [self failureNetworking:name obj:obj result:error withResponse:responseObject];
             if (failBlock) {
                 failBlock(error,0);
             }
@@ -847,11 +1068,76 @@ static NSTimeInterval   requestTimeout = 20.f;
     [dataTask resume];
 }
 
-- (void)successNetworking:(NSString*)name url:(NSString*)url param:(NSDictionary*)params result:(id)result{
-    NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@%@\n%@\n请求结果：%@\n**********************网络请求结束**********************",name,[YYNetworkingConfig shareInstance].hostUrl,url,params,result);
+- (void)successNetworking:(NSString*)name obj:(YYApiObject*)obj result:(id)result{
+    NSMutableURLRequest *request;
+    NSMutableDictionary *params = [obj.mj_keyValues mutableCopy];
+    if (params) {
+        [params removeObjectForKey:@"isHiddenHud"];
+    }
+    
+    
+    NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
+    
+    if ([obj isRestful]) {
+        //处理restful参数
+        if ([obj restfulParam].count > 0) {
+            NSMutableArray *restFullarr = [[NSMutableArray alloc]init];
+            for (NSString *key in [obj restfulParam]) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+                [restFullarr addObject:@{key:[params objectForKey:key]}];
+            }
+            //去掉除restful参数
+            for (NSString *key in [obj restfulParam]) {
+                [params removeObjectForKey:key];
+            }
+            NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@\nHeader参数：%@\nrestFul参数：%@\n普通参数：%@\n请求结果：%@\n**********************网络请求结束**********************",name,requestUrl,[YYNetworkingConfig shareInstance].headers,restFullarr,params,result);
+        }else{
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@\nHeader参数：%@\nrestFul参数：%@\n请求结果：%@\n**********************网络请求结束**********************",name,requestUrl,[YYNetworkingConfig shareInstance].headers,params,result);
+        }
+    
+    }else{
+        NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@\nHeader参数：%@\n请求参数：%@\n请求结果：%@\n**********************网络请求结束**********************",name,requestUrl,[YYNetworkingConfig shareInstance].headers,params,result);
+    }
 }
 
-- (void)failureNetworking:(NSString*)name url:(NSString*)url param:(NSDictionary*)params result:(NSError*)error withResponse:(id  _Nullable)responseObject{
-    NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@%@\n%@\n请求错误：%@\n%@\n**********************网络请求结束**********************",name,[YYNetworkingConfig shareInstance].hostUrl,url,params,error,responseObject);
+- (void)failureNetworking:(NSString*)name obj:(YYApiObject*)obj result:(NSError*)error withResponse:(id  _Nullable)responseObject{
+    NSMutableURLRequest *request;
+    NSMutableDictionary *params = [obj.mj_keyValues mutableCopy];
+    if (params) {
+        [params removeObjectForKey:@"isHiddenHud"];
+    }
+    
+    
+    NSMutableString *requestUrl = [[NSMutableString alloc]initWithFormat:@"%@%@",[YYNetworkingConfig shareInstance].hostUrl,[obj apiUrl]];
+    
+    if ([obj isRestful]) {
+        //处理restful参数
+        if ([obj restfulParam].count > 0) {
+            NSMutableArray *restFullarr= [[NSMutableArray alloc]init];
+            for (NSString *key in [obj restfulParam]) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+                [restFullarr addObject:@{key:[params objectForKey:key]}];
+            }
+            //去掉除restful参数
+            for (NSString *key in [obj restfulParam]) {
+                [params removeObjectForKey:key];
+            }
+            
+            NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@\nHeader参数：%@\nrestFul参数：%@\n普通参数：%@\n请求错误：%@\n%@\n**********************网络请求结束**********************",name,requestUrl,[YYNetworkingConfig shareInstance].headers,restFullarr,params,error,responseObject);
+        }else{
+            NSArray *allKeys = [params allKeys];
+            for (NSString *key in allKeys) {
+                [requestUrl appendFormat:@"/%@",[params objectForKey:key]];
+            }
+            NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@\nHeader参数：%@\nrestFul参数：%@\n请求错误：%@\n%@\n**********************网络请求结束**********************",name,requestUrl,[YYNetworkingConfig shareInstance].headers,params,error,responseObject);
+        }
+    
+    }else{
+        NSLog(@"\n**********************网络请求开始**********************\n请求模型：%@\n请求地址：%@\nHeader参数：%@\n请求参数：%@\n请求错误：%@\n%@\n**********************网络请求结束**********************",name,requestUrl,[YYNetworkingConfig shareInstance].headers,params,error,responseObject);
+    }
 }
 @end

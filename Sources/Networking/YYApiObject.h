@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //restful风格参数序列
 - (NSArray*)restfulParam;
+
+//query参数序列
+- (NSArray*)queryParams;
 @end
 
 NS_ASSUME_NONNULL_END
